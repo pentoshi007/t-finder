@@ -1,0 +1,48 @@
+.technician-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.technician-card {
+  padding: 20px;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.technician-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
+}
+
+.technician-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.technician-card-header h3 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.technician-rating {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.technician-category {
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.technician-city {
+  font-weight: 500;
+}
+
+.technicians-list {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}

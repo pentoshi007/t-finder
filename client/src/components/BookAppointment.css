@@ -1,0 +1,14 @@
+.book-appointment-card {
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.book-appointment-card h3 {
+  margin-top: 0;
+}
+
+.appointment-message {
+  margin-top: 15px;
+  font-weight: 600;
+  color: #a7f3d0; /* A light green for success messages */
+}

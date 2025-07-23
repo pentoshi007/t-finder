@@ -1,0 +1,53 @@
+.register-container {
+  margin-top: 40px;
+}
+
+.role-selector {
+  display: flex;
+  justify-content: center; /* Center the boxes */
+  gap: 1.5rem;
+  margin-top: 2.5rem; /* Increase space below title */
+  margin-bottom: 2rem;
+}
+
+.role-box {
+  flex: 1;
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding: 1.5rem 1rem; /* Adjust padding */
+  border: 2px solid #444;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  max-width: 200px; /* Adjust max-width */
+  min-height: 80px; /* Set a min-height */
+}
+
+.role-box:hover {
+  border-color: #6c63ff;
+  background-color: #2a2a3e;
+}
+
+.role-box.selected {
+  border-color: #6c63ff;
+  background-color: #3a3a5e;
+  box-shadow: 0 0 15px rgba(108, 99, 255, 0.5);
+}
+
+.role-box h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.role-box h4 {
+  margin: 0; /* Remove default margin */
+}
+
+.role-box p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #ccc;
+}

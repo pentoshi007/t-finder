@@ -1,0 +1,20 @@
+[
+  { "name": "Plumber" },
+  { "name": "Electrician" },
+  { "name": "Carpenter" },
+  { "name": "Painter" },
+  { "name": "AC Technician" },
+  { "name": "Appliance Repair" },
+  { "name": "Pest Control" },
+  { "name": "Home Cleaning" },
+  { "name": "Mobile Repair" },
+  { "name": "Laptop Repair" },
+  { "name": "Car Mechanic" },
+  { "name": "Bike Mechanic" },
+  { "name": "RO Water Purifier" },
+  { "name": "CCTV Installation" },
+  { "name": "Home Automation" },
+  { "name": "Welder" },
+  { "name": "Mason" },
+  { "name": "Interior Designer" }
+]

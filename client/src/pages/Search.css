@@ -1,0 +1,457 @@
+.search-container.search-page {
+  min-height: 100vh;
+  padding: 8rem;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.search-outer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8rem 2rem;
+}
+
+.search-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.search-header h1 {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.search-header p {
+  color: #b0b0b0;
+  font-size: 1.1rem;
+}
+
+.results-count {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.search-content {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.filters-sidebar {
+  background: rgba(30, 30, 40, 0.95);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 2rem 1.5rem;
+  min-width: 260px;
+  max-width: 320px;
+  flex: 0 0 300px;
+  margin-bottom: 2rem;
+  position: sticky;
+  top: 2rem;
+}
+
+/* Filters Sidebar */
+.filters-sidebar {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.filters-header h3 {
+  color: #fff;
+  margin: 0;
+}
+
+.clear-filters {
+  background: none;
+  border: 1px solid #6c63ff;
+  color: #6c63ff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.clear-filters:hover {
+  background: #6c63ff;
+  color: white;
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-group label {
+  display: block;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: #6c63ff;
+}
+
+.rate-inputs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.rate-inputs input {
+  flex: 1;
+}
+
+/* Results Section */
+.results-section {
+  flex: 1 1 0%;
+}
+
+.results-header {
+  margin-bottom: 2rem;
+}
+
+.results-header h2 {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+/* Technicians Grid */
+.technicians-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.technician-card {
+  background: rgba(255,255,255,0.04);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 350px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+.technician-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(108,99,255,0.18);
+}
+.tech-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.tech-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6c63ff, #00aaff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+.tech-info {
+  flex: 1;
+}
+.tech-name {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.tech-category {
+  color: #6c63ff;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+.tech-location {
+  color: #b0b0b0;
+  font-size: 0.95rem;
+}
+.tech-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.rating-stars {
+  color: #ffd700;
+}
+.rating-text {
+  color: #fff;
+  font-weight: 600;
+}
+.tech-experience {
+  color: #00aaff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.tech-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.skill-tag {
+  background: rgba(108, 99, 255, 0.18);
+  color: #6c63ff;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.tech-bio {
+  color: #b0b0b0;
+  font-size: 0.98rem;
+  margin-bottom: 1rem;
+  min-height: 40px;
+}
+.tech-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: 1rem;
+}
+.tech-rate {
+  color: #00aaff;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.book-now-btn {
+  padding: 0.7rem 1.5rem;
+  background: linear-gradient(135deg, #6c63ff, #00aaff);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.book-now-btn:hover {
+  background: #6c63ff;
+}
+
+/* Input wrapper */
+.city-search-wrapper {
+  position: relative;
+}
+
+/* City suggestions dropdown */
+.city-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-height: 180px;
+  overflow-y: auto;
+  background: rgba(38, 42, 66, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 0.25rem 0;
+  z-index: 10;
+  list-style: none;
+}
+.city-suggestions li {
+  color: #fff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.city-suggestions li:hover {
+  background: rgba(0,123,255,0.1);
+}
+
+/* Loading States */
+.loading-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.technician-card.loading {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  cursor: default;
+}
+
+.loading-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.loading-content {
+  flex: 1;
+  margin-left: 1rem;
+}
+
+.loading-line {
+  height: 1rem;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.loading-line.short {
+  width: 60%;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #b0b0b0;
+}
+
+.no-results-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.no-results h3 {
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.no-results p {
+  margin-bottom: 2rem;
+}
+
+.reset-search-btn {
+  padding: 1rem 2rem;
+  background: transparent;
+  color: #6c63ff;
+  border: 2px solid #6c63ff;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-search-btn:hover {
+  background: #6c63ff;
+  color: white;
+}
+
+/* Responsive Design */
+@media (min-width: 901px) {
+  .filters-sidebar {
+    position: fixed;
+    top: 8rem;
+    left: 2rem;
+    width: 300px;
+    max-width: 320px;
+    z-index: 10;
+  }
+  .search-content {
+    margin-left: 340px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .technicians-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .search-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .filters-sidebar {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .search-content {
+    margin-left: 0;
+  }
+  .results-section {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .search-outer-container {
+    padding: 1.5rem 0.5rem;
+  }
+  .technicians-grid {
+    grid-template-columns: 1fr;
+  }
+  .filters-sidebar {
+    padding: 1rem 0.5rem;
+  }
+  .technician-card {
+    padding: 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-container {
+    padding: 0.5rem;
+  }
+  
+  .search-header h1 {
+    font-size: 2rem;
+  }
+  
+  .technician-card {
+    padding: 1.5rem;
+  }
+}

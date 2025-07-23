@@ -1,0 +1,13 @@
+.leave-review-card {
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.leave-review-card h3 {
+  margin-top: 0;
+}
+
+.leave-review-card textarea {
+  min-height: 100px;
+  resize: vertical;
+}

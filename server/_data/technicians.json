@@ -1,0 +1,82 @@
+[
+  {
+    "user": "60d5f2f9a9c8b4a8b0e8f0b1",
+    "category": "Plumber",
+    "location": { "city": "Mumbai", "state": "Maharashtra" },
+    "phone": "9876543210",
+    "bio": "Certified plumber with 10+ years of experience in residential and commercial plumbing. Expert in leak detection and pipe installation.",
+    "skills": ["Leak Detection", "Pipe Fitting", "Drain Cleaning", "Water Heater Installation"],
+    "experience": 10,
+    "hourlyRate": 500
+  },
+  {
+    "user": "60d5f2f9a9c8b4a8b0e8f0b2",
+    "category": "Electrician",
+    "location": { "city": "Delhi", "state": "Delhi" },
+    "phone": "9876543211",
+    "bio": "Licensed electrician specializing in home wiring, fixture installation, and electrical safety inspections. Committed to quality and safety.",
+    "skills": ["Wiring and Rewiring", "Fixture Installation", "Panel Upgrades", "Safety Audits"],
+    "experience": 8,
+    "hourlyRate": 600
+  },
+  {
+    "user": "60d5f2f9a9c8b4a8b0e8f0b3",
+    "category": "Carpenter",
+    "location": { "city": "Bengaluru", "state": "Karnataka" },
+    "phone": "9876543212",
+    "bio": "Skilled carpenter with a passion for custom furniture and cabinetry. I bring precision and creativity to every project.",
+    "skills": ["Custom Furniture", "Cabinet Making", "Door Installation", "Wood Polishing"],
+    "experience": 12,
+    "hourlyRate": 750
+  },
+  {
+    "user": "60d5f2f9a9c8b4a8b0e8f0b4",
+    "category": "AC Technician",
+    "location": { "city": "Chennai", "state": "Tamil Nadu" },
+    "phone": "9876543213",
+    "bio": "Expert in AC installation, repair, and maintenance for all major brands. Fast, reliable, and efficient service guaranteed.",
+    "skills": ["AC Installation", "Gas Refilling", "PCB Repair", "Compressor Issues"],
+    "experience": 7,
+    "hourlyRate": 550
+  },
+  {
+    "user": "60d5f2f9a9c8b4a8b0e8f0b5",
+    "category": "Painter",
+    "location": { "city": "Kolkata", "state": "West Bengal" },
+    "phone": "9876543214",
+    "bio": "Professional painter for interior and exterior projects. I use high-quality materials to deliver a perfect finish every time.",
+    "skills": ["Interior Painting", "Exterior Painting", "Wall Texturing", "Waterproofing"],
+    "experience": 15,
+    "hourlyRate": 450
+  },
+  {
+    "user": "60d5f2f9a9c8b4a8b0e8f0b6",
+    "category": "Plumber",
+    "location": { "city": "Sambalpur", "state": "Odisha" },
+    "phone": "9876543215",
+    "bio": "Your local plumbing expert in Sambalpur. I handle everything from leaky faucets to complete bathroom plumbing installations.",
+    "skills": ["Tap and Faucet Repair", "Sanitary Ware Installation", "Water Tank Cleaning"],
+    "experience": 5,
+    "hourlyRate": 400
+  },
+  {
+    "user": "60d5f2f9a9c8b4a8b0e8f0b7",
+    "category": "Electrician",
+    "location": { "city": "Sambalpur", "state": "Odisha" },
+    "phone": "9876543216",
+    "bio": "Reliable electrician serving the Sambalpur area. I provide safe and effective solutions for all your electrical needs, big or small.",
+    "skills": ["Inverter Installation", "Fuse and MCB Repair", "General Wiring"],
+    "experience": 6,
+    "hourlyRate": 480
+  },
+  {
+    "user": "60d5f2f9a9c8b4a8b0e8f0b8",
+    "category": "Appliance Repair",
+    "location": { "city": "Sambalpur", "state": "Odisha" },
+    "phone": "9876543217",
+    "bio": "Specialist in repairing home appliances like washing machines, refrigerators, and microwaves. Quick diagnostics and affordable repairs.",
+    "skills": ["Washing Machine Repair", "Refrigerator Repair", "Microwave Oven Repair"],
+    "experience": 4,
+    "hourlyRate": 500
+  }
+]

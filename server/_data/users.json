@@ -1,0 +1,79 @@
+[
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0a1",
+    "name": "Rohan Sharma",
+    "email": "rohan.sharma@example.com",
+    "password": "password123",
+    "role": "user"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0a2",
+    "name": "Priya Patel",
+    "email": "priya.patel@example.com",
+    "password": "password123",
+    "role": "user"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0a3",
+    "name": "Amit Singh",
+    "email": "amit.singh@example.com",
+    "password": "password123",
+    "role": "user"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0b1",
+    "name": "Suresh Gupta",
+    "email": "suresh.gupta@example.com",
+    "password": "password123",
+    "role": "technician"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0b2",
+    "name": "Deepak Kumar",
+    "email": "deepak.kumar@example.com",
+    "password": "password123",
+    "role": "technician"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0b3",
+    "name": "Manoj Das",
+    "email": "manoj.das@example.com",
+    "password": "password123",
+    "role": "technician"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0b4",
+    "name": "Anjali Mishra",
+    "email": "anjali.mishra@example.com",
+    "password": "password123",
+    "role": "technician"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0b5",
+    "name": "Rajesh Verma",
+    "email": "rajesh.verma@example.com",
+    "password": "password123",
+    "role": "technician"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0b6",
+    "name": "Sunita Devi",
+    "email": "sunita.devi@example.com",
+    "password": "password123",
+    "role": "technician"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0b7",
+    "name": "Vikram Rathore",
+    "email": "vikram.rathore@example.com",
+    "password": "password123",
+    "role": "technician"
+  },
+  {
+    "_id": "60d5f2f9a9c8b4a8b0e8f0b8",
+    "name": "Prakash Jena",
+    "email": "prakash.jena@example.com",
+    "password": "password123",
+    "role": "technician"
+  }
+]

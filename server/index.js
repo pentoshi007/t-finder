@@ -12,10 +12,7 @@ connectDB();
 const app = express();
 
 // Init Middleware
-app.use(cors({
-  origin: 'https://t-finder-ani.vercel.app',
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) => res.send('API Running'));

@@ -5,6 +5,7 @@ import AuthContext from '../context/AuthContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Page.css';
 import './Dashboard.css';
+import './Dashboard-mobile.css';
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);

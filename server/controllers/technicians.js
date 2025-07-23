@@ -230,12 +230,22 @@ exports.addReview = async (req, res) => {
 // @access  Public
 exports.getReviewsForTechnician = async (req, res) => {
   try {
-    const reviews = await Review.find({ technician: req.params.id })
+    const technicianId = req.params.id;
+
+    // Attempt to fetch technician document to get its linked user id.
+    const techDoc = await require('../models/Technician').findById(technicianId).select('user');
+
+    // Build dynamic OR filter: standard technician match plus (legacy) userId match
+    const filter = techDoc ? { $or: [ { technician: technicianId }, { technician: techDoc.user } ] } : { technician: technicianId };
+
+    const reviews = await require('../models/Review')
+      .find(filter)
       .populate('user', 'name')
       .sort({ createdAt: -1 });
-    res.json(reviews);
+
+    return res.json(reviews);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    return res.status(500).send('Server Error');
   }
 };

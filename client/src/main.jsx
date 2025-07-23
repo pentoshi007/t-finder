@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import axios from 'axios';
+
+// Configure Axios base URL from environment variable
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 import { AuthProvider } from './context/AuthContext';
 import { Toaster } from 'react-hot-toast';
 import './index.css';

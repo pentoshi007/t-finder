@@ -24,7 +24,7 @@
 |------|:------:|-------|
 | Glassmorphic theme components | ✔️ | Login, Modals, Dropdowns |
 | Mobile responsiveness | ❌ | Audit with dev-tools & add media queries |
-| Dark-mode toggle | ❌ | CSS variables & context |
+
 | Loading / empty states everywhere | ✔️ | Spinners & messages added |
 
 ## 3. Backend APIs

@@ -9,14 +9,24 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [appointments, setAppointments] = useState([]);
   const [jobs, setJobs] = useState([]);
+  const [recentActivity, setRecentActivity] = useState([]);
 
   const isTechnician = user && user.user && user.technician;
 
   useEffect(() => {
     if (isTechnician) {
       const fetchJobs = async () => {
-        const res = await axios.get('/api/bookings/technician-bookings');
-        setJobs(res.data);
+        try {
+          const res = await axios.get('/api/bookings/technician-bookings');
+          setJobs(res.data);
+          // Set recent activity for technicians
+          const recent = res.data
+            .sort((a, b) => new Date(b.createdAt || b.scheduledDate) - new Date(a.createdAt || a.scheduledDate))
+            .slice(0, 3);
+          setRecentActivity(recent);
+        } catch (err) {
+          console.error(err);
+        }
       };
       fetchJobs();
     } else if (user) {
@@ -24,6 +34,11 @@ const Dashboard = () => {
         try {
           const res = await axios.get('/api/bookings/my-bookings');
           setAppointments(res.data);
+          // Set recent activity for users
+          const recent = res.data
+            .sort((a, b) => new Date(b.createdAt || b.scheduledDate) - new Date(a.createdAt || a.scheduledDate))
+            .slice(0, 3);
+          setRecentActivity(recent);
         } catch (err) {
           console.error(err);
         }
@@ -42,37 +57,144 @@ const Dashboard = () => {
     const totalJobs = jobs.length;
     const completedJobs = jobs.filter(j => j.status === 'completed').length;
     const pendingJobs = jobs.filter(j => j.status === 'pending').length;
+    const confirmedJobs = jobs.filter(j => j.status === 'confirmed').length;
+
+    // Calculate earnings
+    const totalEarnings = jobs
+      .filter(j => j.status === 'completed')
+      .reduce((sum, job) => sum + (job.totalAmount || 0), 0);
+    const thisMonthJobs = jobs.filter(j => {
+      const jobDate = new Date(j.scheduledDate || j.createdAt);
+      const now = new Date();
+      return jobDate.getMonth() === now.getMonth() && jobDate.getFullYear() === now.getFullYear();
+    });
+    const thisMonthEarnings = thisMonthJobs
+      .filter(j => j.status === 'completed')
+      .reduce((sum, job) => sum + (job.totalAmount || 0), 0);
+    const avgJobValue = completedJobs > 0 ? Math.round(totalEarnings / completedJobs) : 0;
+
     return (
-      <div className="tech-dashboard-bg">
-        <div className="tech-dashboard-card refined">
-          <div className="tech-dashboard-avatar big">{name.charAt(0).toUpperCase()}</div>
-          <h1 className="tech-dashboard-title">Welcome, {name}</h1>
-          <div className="tech-dashboard-profile refined">
-            <div><span>Email:</span> {email}</div>
-            <div><span>Category:</span> {category}</div>
-            <div><span>Experience:</span> {experience} years</div>
-            <div><span>Hourly Rate:</span> ₹{hourlyRate}</div>
-          </div>
-          <div className="tech-dashboard-stats refined">
-            <div className="stat-card refined total">
-              <div className="stat-icon">📋</div>
-              <div className="stat-label">Total</div>
-              <div className="stat-value">{totalJobs}</div>
+      <div className="modern-dashboard">
+        <div className="dashboard-container">
+          {/* Header Section */}
+          <div className="dashboard-header">
+            <div className="user-welcome">
+              <div className="user-avatar technician">
+                {name.charAt(0).toUpperCase()}
+              </div>
+              <div className="user-info">
+                <h1>Welcome back, {name}!</h1>
+                <p className="user-subtitle">{category} • {experience} years experience</p>
+              </div>
             </div>
-            <div className="stat-card refined completed">
+            <div className="header-actions">
+              <Link to="/jobs" className="action-btn primary">
+                <span className="btn-icon">📋</span>
+                View Jobs
+              </Link>
+              <Link to="/edit-profile" className="action-btn secondary">
+                <span className="btn-icon">⚙️</span>
+                Settings
+              </Link>
+            </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="stats-grid">
+            <div className="stat-card earnings">
+              <div className="stat-icon">💰</div>
+              <div className="stat-content">
+                <h3>₹{totalEarnings.toLocaleString()}</h3>
+                <p>Total Earnings</p>
+              </div>
+              <div className="stat-trend">All time</div>
+            </div>
+            <div className="stat-card monthly">
+              <div className="stat-icon">📈</div>
+              <div className="stat-content">
+                <h3>₹{thisMonthEarnings.toLocaleString()}</h3>
+                <p>This Month</p>
+              </div>
+              <div className="stat-badge">{thisMonthJobs.length} jobs</div>
+            </div>
+            <div className="stat-card completed">
               <div className="stat-icon">✅</div>
-              <div className="stat-label">Completed</div>
-              <div className="stat-value">{completedJobs}</div>
+              <div className="stat-content">
+                <h3>{completedJobs}</h3>
+                <p>Completed</p>
+              </div>
+              <div className="stat-trend">₹{avgJobValue} avg</div>
             </div>
-            <div className="stat-card refined pending">
+            <div className="stat-card pending">
               <div className="stat-icon">⏳</div>
-              <div className="stat-label">Pending</div>
-              <div className="stat-value">{pendingJobs}</div>
+              <div className="stat-content">
+                <h3>{pendingJobs}</h3>
+                <p>Pending</p>
+              </div>
+              <div className="stat-badge">{pendingJobs > 0 ? 'New' : 'None'}</div>
             </div>
           </div>
-          <div className="tech-dashboard-actions refined">
-            <a href="/jobs" className="btn-link refined">View My Jobs</a>
-            <a href="/edit-profile" className="btn-link secondary refined">Edit Profile</a>
+
+          {/* Content Grid */}
+          <div className="content-grid">
+            {/* Recent Activity */}
+            <div className="content-card">
+              <div className="card-header">
+                <h2>Recent Activity</h2>
+                <Link to="/jobs" className="view-all">View All</Link>
+              </div>
+              <div className="activity-list">
+                {recentActivity.length > 0 ? recentActivity.map((activity, index) => (
+                  <div key={activity._id || index} className="activity-item">
+                    <div className={`activity-status ${activity.status}`}></div>
+                    <div className="activity-content">
+                      <h4>{activity.service}</h4>
+                      <p>{activity.user?.name || 'Unknown User'}</p>
+                      <span className="activity-time">
+                        {activity.scheduledDate ? new Date(activity.scheduledDate).toLocaleDateString() : 'No date'}
+                      </span>
+                    </div>
+                    <div className={`status-badge ${activity.status}`}>
+                      {activity.status}
+                    </div>
+                  </div>
+                )) : (
+                  <div className="empty-state">
+                    <span className="empty-icon">📭</span>
+                    <p>No recent activity</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Earnings & Performance */}
+            <div className="content-card">
+              <div className="card-header">
+                <h2>Earnings & Performance</h2>
+              </div>
+              <div className="performance-metrics">
+                <div className="metric">
+                  <div className="metric-label">💵 Hourly Rate</div>
+                  <div className="metric-value">₹{hourlyRate}</div>
+                </div>
+                <div className="metric">
+                  <div className="metric-label">📊 Success Rate</div>
+                  <div className="metric-value">{totalJobs > 0 ? Math.round((completedJobs / totalJobs) * 100) : 0}%</div>
+                </div>
+                <div className="metric">
+                  <div className="metric-label">📅 This Month</div>
+                  <div className="metric-value">{thisMonthJobs.length} jobs</div>
+                </div>
+                <div className="metric">
+                  <div className="metric-label">💎 Avg Job Value</div>
+                  <div className="metric-value">₹{avgJobValue}</div>
+                </div>
+                <div className="metric">
+                  <div className="metric-label">🎯 Active Jobs</div>
+                  <div className="metric-value">{confirmedJobs}</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -86,40 +208,148 @@ const Dashboard = () => {
     const completed = appointments.filter(a => a.status === 'completed').length;
     const upcoming = appointments.filter(a => a.status === 'confirmed').length;
     const cancelled = appointments.filter(a => a.status === 'cancelled' || a.status === 'rejected').length;
+
+    // Calculate spending
+    const totalSpent = appointments
+      .filter(a => a.status === 'completed')
+      .reduce((sum, booking) => sum + (booking.totalAmount || 0), 0);
+    const thisMonthBookings = appointments.filter(a => {
+      const bookingDate = new Date(a.scheduledDate || a.createdAt);
+      const now = new Date();
+      return bookingDate.getMonth() === now.getMonth() && bookingDate.getFullYear() === now.getFullYear();
+    });
+    const thisMonthSpent = thisMonthBookings
+      .filter(a => a.status === 'completed')
+      .reduce((sum, booking) => sum + (booking.totalAmount || 0), 0);
+    const avgBookingValue = completed > 0 ? Math.round(totalSpent / completed) : 0;
+
     return (
-      <div className="tech-dashboard-bg">
-        <div className="tech-dashboard-card refined user-dashboard">
-          <div className="tech-dashboard-avatar big user">{name.charAt(0).toUpperCase()}</div>
-          <h1 className="tech-dashboard-title">Welcome, {name}</h1>
-          <div className="tech-dashboard-profile refined">
-            <div><span>Email:</span> {email}</div>
-            <div><span>Role:</span> User</div>
-          </div>
-          <div className="tech-dashboard-stats refined">
-            <div className="stat-card refined total">
-              <div className="stat-icon">📋</div>
-              <div className="stat-label">Total</div>
-              <div className="stat-value">{totalBookings}</div>
+      <div className="modern-dashboard">
+        <div className="dashboard-container">
+          {/* Header Section */}
+          <div className="dashboard-header">
+            <div className="user-welcome">
+              <div className="user-avatar user">
+                {name.charAt(0).toUpperCase()}
+              </div>
+              <div className="user-info">
+                <h1>Welcome back, {name}!</h1>
+                <p className="user-subtitle">Manage your service bookings</p>
+              </div>
             </div>
-            <div className="stat-card refined completed">
+            <div className="header-actions">
+              <Link to="/search" className="action-btn primary">
+                <span className="btn-icon">🔍</span>
+                Find Services
+              </Link>
+              <Link to="/edit-profile" className="action-btn secondary">
+                <span className="btn-icon">⚙️</span>
+                Settings
+              </Link>
+            </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="stats-grid">
+            <div className="stat-card spending">
+              <div className="stat-icon">💳</div>
+              <div className="stat-content">
+                <h3>₹{totalSpent.toLocaleString()}</h3>
+                <p>Total Spent</p>
+              </div>
+              <div className="stat-trend">All time</div>
+            </div>
+            <div className="stat-card monthly">
+              <div className="stat-icon">📊</div>
+              <div className="stat-content">
+                <h3>₹{thisMonthSpent.toLocaleString()}</h3>
+                <p>This Month</p>
+              </div>
+              <div className="stat-badge">{thisMonthBookings.length} bookings</div>
+            </div>
+            <div className="stat-card completed">
               <div className="stat-icon">✅</div>
-              <div className="stat-label">Completed</div>
-              <div className="stat-value">{completed}</div>
+              <div className="stat-content">
+                <h3>{completed}</h3>
+                <p>Completed</p>
+              </div>
+              <div className="stat-trend">₹{avgBookingValue} avg</div>
             </div>
-            <div className="stat-card refined pending">
-              <div className="stat-icon">⏳</div>
-              <div className="stat-label">Upcoming</div>
-              <div className="stat-value">{upcoming}</div>
-            </div>
-            <div className="stat-card refined cancelled">
-              <div className="stat-icon">❌</div>
-              <div className="stat-label">Cancelled</div>
-              <div className="stat-value">{cancelled}</div>
+            <div className="stat-card upcoming">
+              <div className="stat-icon">📅</div>
+              <div className="stat-content">
+                <h3>{upcoming}</h3>
+                <p>Upcoming</p>
+              </div>
+              <div className="stat-badge">{upcoming > 0 ? 'Active' : 'None'}</div>
             </div>
           </div>
-          <div className="tech-dashboard-actions refined">
-            <a href="/my-bookings" className="btn-link refined">View My Bookings</a>
-            <a href="/edit-profile" className="btn-link secondary refined">Edit Profile</a>
+
+          {/* Content Grid */}
+          <div className="content-grid">
+            {/* Recent Bookings */}
+            <div className="content-card">
+              <div className="card-header">
+                <h2>Recent Bookings</h2>
+                <Link to="/my-bookings" className="view-all">View All</Link>
+              </div>
+              <div className="activity-list">
+                {recentActivity.length > 0 ? recentActivity.map((booking, index) => (
+                  <div key={booking._id || index} className="activity-item">
+                    <div className={`activity-status ${booking.status}`}></div>
+                    <div className="activity-content">
+                      <h4>{booking.service}</h4>
+                      <p>{booking.technician?.user?.name || 'Technician'}</p>
+                      <span className="activity-time">
+                        {booking.scheduledDate ? new Date(booking.scheduledDate).toLocaleDateString() : 'No date'}
+                      </span>
+                    </div>
+                    <div className={`status-badge ${booking.status}`}>
+                      {booking.status}
+                    </div>
+                  </div>
+                )) : (
+                  <div className="empty-state">
+                    <span className="empty-icon">📭</span>
+                    <p>No bookings yet</p>
+                    <Link to="/search" className="empty-action">Find Services</Link>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Spending & Stats */}
+            <div className="content-card">
+              <div className="card-header">
+                <h2>Spending Overview</h2>
+              </div>
+              <div className="performance-metrics">
+                <div className="metric">
+                  <div className="metric-label">💰 Total Spent</div>
+                  <div className="metric-value">₹{totalSpent.toLocaleString()}</div>
+                </div>
+                <div className="metric">
+                  <div className="metric-label">📈 This Month</div>
+                  <div className="metric-value">₹{thisMonthSpent.toLocaleString()}</div>
+                </div>
+                <div className="metric">
+                  <div className="metric-label">📊 Avg Booking</div>
+                  <div className="metric-value">₹{avgBookingValue}</div>
+                </div>
+                <div className="metric">
+                  <div className="metric-label">🎯 Success Rate</div>
+                  <div className="metric-value">{totalBookings > 0 ? Math.round((completed / totalBookings) * 100) : 0}%</div>
+                </div>
+                <div className="quick-actions-mini">
+                  <Link to="/search" className="mini-action">
+                    🔍 Find Services
+                  </Link>
+                  <Link to="/my-bookings" className="mini-action">
+                    📋 All Bookings
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -137,23 +367,6 @@ const Dashboard = () => {
             <Link to="/edit-profile" className="btn-link">Edit Profile</Link>
           </div>
         )}
-
-        <div className="appointments-section">
-          <h2>My Appointments</h2>
-          {appointments.length > 0 ? (
-            <ul className="appointments-list">
-              {appointments.map((apt) => (
-                <li key={apt._id} className="appointment-item">
-                  <p><strong>Technician:</strong> {apt.technician.user.name}</p>
-                  <p><strong>Date:</strong> {new Date(apt.date).toLocaleDateString()}</p>
-                  <p><strong>Status:</strong> <span className={`status status-${apt.status.toLowerCase()}`}>{apt.status}</span></p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>You have no appointments.</p>
-          )}
-        </div>
       </div>
     </div>
   );

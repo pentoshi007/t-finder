@@ -24,7 +24,7 @@ const Navbar = () => {
   }
 
   const isTechnician = user && user.user && user.technician;
-  const isUser = user && !user.user;
+  const isUser = user && user.role === 'user' && !user.user;
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -34,12 +34,20 @@ const Navbar = () => {
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) &&
         !event.target.classList.contains('mobile-menu-toggle')) {
         setMobileMenuOpen(false);
+        setDropdownOpen(false); // Close dropdown when mobile menu closes
       }
     }
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [dropdownOpen, mobileMenuOpen]);
+
+  // Close dropdown when mobile menu closes
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      setDropdownOpen(false);
+    }
+  }, [mobileMenuOpen]);
 
   // Handle body scroll lock for mobile menu
   useEffect(() => {
@@ -95,8 +103,42 @@ const Navbar = () => {
     <ul className={`navbar-links ${mobileMenuOpen ? 'active' : ''}`} ref={mobileMenuRef}>
       <li><NavLink to="/" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink></li>
       {isUser && <li><NavLink to="/search" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>Find Technicians</NavLink></li>}
-      {isTechnician && technicianDropdown}
-      {isUser && userDropdown}
+
+      {/* Desktop: Show dropdowns, Mobile: Show direct links */}
+      <li className="desktop-only">
+        {isTechnician && technicianDropdown}
+        {isUser && userDropdown}
+      </li>
+
+      {/* Mobile: Show direct menu items instead of dropdowns */}
+      {isTechnician && (
+        <>
+          <li className="mobile-only user-info">
+            <div className="mobile-user-header">
+              <span className="mobile-avatar">{avatarLetter}</span>
+              <span className="mobile-name">{displayName}</span>
+            </div>
+          </li>
+          <li className="mobile-only"><NavLink to="/dashboard" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink></li>
+          <li className="mobile-only"><NavLink to="/jobs" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>My Jobs</NavLink></li>
+          <li className="mobile-only"><a onClick={() => { setMobileMenuOpen(false); logout(); }} href="#!">Logout</a></li>
+        </>
+      )}
+
+      {isUser && (
+        <>
+          <li className="mobile-only user-info">
+            <div className="mobile-user-header">
+              <span className="mobile-avatar user">{avatarLetter}</span>
+              <span className="mobile-name">{displayName}</span>
+            </div>
+          </li>
+          <li className="mobile-only"><NavLink to="/dashboard" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink></li>
+          <li className="mobile-only"><NavLink to="/my-bookings" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>My Bookings</NavLink></li>
+          <li className="mobile-only"><NavLink to="/edit-profile" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>Edit Profile</NavLink></li>
+          <li className="mobile-only"><a onClick={() => { setMobileMenuOpen(false); logout(); }} href="#!">Logout</a></li>
+        </>
+      )}
     </ul>
   );
 

@@ -63,6 +63,8 @@
     transition: transform 0.3s ease;
     z-index: 999;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    contain: layout style;
   }
   
   .navbar-links.active {
@@ -93,6 +95,8 @@
   
   .navbar-dropdown {
     width: 100%;
+    position: relative;
+    overflow: visible;
   }
   
   .navbar-avatar {
@@ -104,12 +108,16 @@
   }
   
   .navbar-dropdown-menu {
-    position: static;
+    position: static !important;
     width: 100%;
     margin-top: 0.5rem;
     box-shadow: none;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    top: auto !important;
+    right: auto !important;
+    transform: none !important;
+    z-index: 1 !important;
   }
 }
 
@@ -272,4 +280,117 @@
   box-shadow: 0 2px 8px rgba(108,99,255,0.10);
   padding: 0.4rem 1.1rem;
   transition: background 0.18s;
+}
+/* Fix for mobile navbar extra elements */
+@media (max-width: 768px) {
+  /* Hide any extra role indicators or elements that might appear */
+  .navbar-role-indicator,
+  .navbar-extra-info,
+  .technician-badge {
+    display: none !important;
+  }
+  
+  /* Ensure clean mobile navbar */
+  .navbar-brand {
+    flex: 1;
+  }
+  
+  .mobile-menu-toggle {
+    flex-shrink: 0;
+  }
+  
+  /* Prevent dropdown from appearing above navbar */
+  .navbar-dropdown-menu {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: 1 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  
+  /* Ensure mobile menu contains all dropdowns */
+  .navbar-links {
+    contain: layout style paint !important;
+  }
+  
+  /* Hide any elements that might appear above the navbar */
+  body > *:not(#root) {
+    display: none !important;
+  }
+  
+  /* Ensure navbar is always on top */
+  .navbar {
+    z-index: 10000 !important;
+    position: fixed !important;
+  }
+}/* D
+esktop/Mobile visibility controls */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+  
+  .desktop-only {
+    display: none !important;
+  }
+  
+  /* Mobile user info styling */
+  .user-info {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
+    padding-bottom: 1rem;
+  }
+  
+  .mobile-user-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    justify-content: center;
+  }
+  
+  .mobile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6c63ff, #00aaff);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  
+  .mobile-avatar.user {
+    background: linear-gradient(135deg, #ff6b6b, #ffa259);
+  }
+  
+  .mobile-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  /* Remove dropdown functionality on mobile */
+  .navbar-dropdown {
+    display: none !important;
+  }
+  
+  .navbar-dropdown-menu {
+    display: none !important;
+  }
 }

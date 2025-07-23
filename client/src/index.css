@@ -86,3 +86,46 @@ input, select, textarea {
   }
 }
 
+/* Fix for mobile navbar issues */
+@media (max-width: 768px) {
+  /* Prevent any elements from appearing above navbar */
+  body::before,
+  #root::before,
+  .app-container::before {
+    display: none !important;
+  }
+  
+  /* Ensure navbar is always on top */
+  .navbar {
+    z-index: 9999 !important;
+  }
+  
+  /* Hide any role indicators or badges that might appear */
+  .role-indicator,
+  .user-type-badge,
+  .technician-indicator {
+    display: none !important;
+  }
+  
+  /* Prevent any dropdown or popup from appearing above navbar */
+  .navbar-dropdown-menu,
+  .dropdown-menu,
+  .popup-menu {
+    position: static !important;
+    top: auto !important;
+    z-index: 1 !important;
+  }
+  
+  /* Hide any floating elements that might appear above navbar */
+  body > div:not(#root),
+  body > span,
+  body > ul,
+  body > nav:not(.navbar) {
+    display: none !important;
+  }
+  
+  /* Ensure clean mobile experience */
+  * {
+    contain: layout style;
+  }
+}

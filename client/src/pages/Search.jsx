@@ -278,49 +278,62 @@ const Search = () => {
                             <p>Loading technicians...</p>
                         </div>
                     ) : displayedTechnicians.length > 0 ? (
-                        <div className="technicians-grid">
-                            {displayedTechnicians.map((tech) => (
-                                <div
-                                    key={tech._id}
-                                    className="technician-card"
-                                    onClick={() => navigate(`/technician/${tech._id}`)}
-                                >
-                                    {/* ...card content... */}
-                                    <div className="tech-header">
-                                        <div className="tech-avatar">
-                                            {tech.user.name.charAt(0).toUpperCase()}
+                        <>
+                            <div className="technicians-grid">
+                                {displayedTechnicians.map((tech) => (
+                                    <div
+                                        key={tech._id}
+                                        className="technician-card"
+                                        onClick={() => navigate(`/technician/${tech._id}`)}
+                                    >
+                                        {/* ...card content... */}
+                                        <div className="tech-header">
+                                            <div className="tech-avatar">
+                                                {tech.user.name.charAt(0).toUpperCase()}
+                                            </div>
+                                            <div className="tech-info">
+                                                <h3 className="tech-name">{tech.user.name}</h3>
+                                                <p className="tech-category">{tech.category.name}</p>
+                                                <p className="tech-location">📍 {tech.location.city}</p>
+                                            </div>
                                         </div>
-                                        <div className="tech-info">
-                                            <h3 className="tech-name">{tech.user.name}</h3>
-                                            <p className="tech-category">{tech.category.name}</p>
-                                            <p className="tech-location">📍 {tech.location.city}</p>
+                                        <div className="tech-rating">
+                                            <span className="rating-stars">⭐⭐⭐⭐⭐</span>
+                                            <span className="rating-text">{tech.averageRating || '4.8'}</span>
+                                        </div>
+                                        <div className="tech-experience">
+                                            {tech.experience} years experience
+                                        </div>
+                                        <div className="tech-skills">
+                                            {tech.skills && tech.skills.map((skill, idx) => (
+                                                <span key={idx} className="skill-tag">{skill}</span>
+                                            ))}
+                                        </div>
+                                        <div className="tech-bio">
+                                            {tech.bio && tech.bio.length > 100 ? tech.bio.slice(0, 100) + '...' : tech.bio}
+                                        </div>
+                                        <div className="tech-footer">
+                                            <div className="tech-rate">
+                                                <span className="rate-amount">₹{tech.hourlyRate}</span>
+                                                <span className="rate-unit">/hour</span>
+                                            </div>
+                                            <button className="book-now-btn">View Profile & Book</button>
                                         </div>
                                     </div>
-                                    <div className="tech-rating">
-                                        <span className="rating-stars">⭐⭐⭐⭐⭐</span>
-                                        <span className="rating-text">{tech.averageRating || '4.8'}</span>
-                                    </div>
-                                    <div className="tech-experience">
-                                        {tech.experience} years experience
-                                    </div>
-                                    <div className="tech-skills">
-                                        {tech.skills && tech.skills.map((skill, idx) => (
-                                            <span key={idx} className="skill-tag">{skill}</span>
-                                        ))}
-                                    </div>
-                                    <div className="tech-bio">
-                                        {tech.bio && tech.bio.length > 100 ? tech.bio.slice(0, 100) + '...' : tech.bio}
-                                    </div>
-                                    <div className="tech-footer">
-                                        <div className="tech-rate">
-                                            <span className="rate-amount">₹{tech.hourlyRate}</span>
-                                            <span className="rate-unit">/hour</span>
-                                        </div>
-                                        <button className="book-now-btn">View Profile & Book</button>
-                                    </div>
+                                ))}
+                            </div>
+                            {!isFilterActive && hasMore && (
+                                <div className="load-more-container">
+                                    <button
+                                        className="load-more-btn"
+                                        onClick={() => fetchTechnicians(false)}
+                                        disabled={loading}
+                                    >
+                                        {loading ? 'Loading...' : 'Load More Technicians'}
+                                    </button>
                                 </div>
-                            ))}
-                        </div>
+                            )}
+                        </>
                     ) : (
                         <div className="no-results">
                             <div className="no-results-icon">🔍</div>

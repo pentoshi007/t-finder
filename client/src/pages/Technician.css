@@ -151,7 +151,9 @@
 }
 
 .content-main {
-  space-y: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .section {
@@ -190,7 +192,9 @@
 }
 
 .reviews-list {
-  space-y: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .review-card {
@@ -256,7 +260,9 @@
 }
 
 .content-sidebar {
-  space-y: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .sidebar-card {
@@ -275,7 +281,9 @@
 
 .service-info,
 .contact-info {
-  space-y: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .info-item {
@@ -333,6 +341,21 @@
 .error-container h2 {
   color: #fff;
   margin-bottom: 0.5rem;
+}
+
+.tech-profile-animate {
+  animation: techProfileFadeIn 0.6s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+@keyframes techProfileFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive Design */

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Page.css';
 import './Dashboard.css';
 
@@ -12,6 +13,9 @@ const Dashboard = () => {
   const [recentActivity, setRecentActivity] = useState([]);
 
   const isTechnician = user && user.user && user.technician;
+
+  // Initialize scroll animations
+  useScrollAnimation();
 
   useEffect(() => {
     if (isTechnician) {
@@ -74,10 +78,10 @@ const Dashboard = () => {
     const avgJobValue = completedJobs > 0 ? Math.round(totalEarnings / completedJobs) : 0;
 
     return (
-      <div className="modern-dashboard">
+      <div className="modern-dashboard page-refresh-enter">
         <div className="dashboard-container">
           {/* Header Section */}
-          <div className="dashboard-header">
+          <div className="dashboard-header profile-card-animate">
             <div className="user-welcome">
               <div className="user-avatar technician">
                 {name.charAt(0).toUpperCase()}
@@ -88,11 +92,11 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="header-actions">
-              <Link to="/jobs" className="action-btn primary">
+              <Link to="/jobs" className="action-btn primary btn-animate">
                 <span className="btn-icon">📋</span>
                 View Jobs
               </Link>
-              <Link to="/edit-profile" className="action-btn secondary">
+              <Link to="/edit-profile" className="action-btn secondary btn-animate">
                 <span className="btn-icon">⚙️</span>
                 Settings
               </Link>
@@ -100,8 +104,8 @@ const Dashboard = () => {
           </div>
 
           {/* Stats Grid */}
-          <div className="stats-grid">
-            <div className="stat-card earnings">
+          <div className="stats-grid animate-on-scroll stagger-animate">
+            <div className="stat-card earnings card-hover">
               <div className="stat-icon">💰</div>
               <div className="stat-content">
                 <h3>₹{totalEarnings.toLocaleString()}</h3>
@@ -109,7 +113,7 @@ const Dashboard = () => {
               </div>
               <div className="stat-trend">All time</div>
             </div>
-            <div className="stat-card monthly">
+            <div className="stat-card monthly card-hover">
               <div className="stat-icon">📈</div>
               <div className="stat-content">
                 <h3>₹{thisMonthEarnings.toLocaleString()}</h3>
@@ -117,7 +121,7 @@ const Dashboard = () => {
               </div>
               <div className="stat-badge">{thisMonthJobs.length} jobs</div>
             </div>
-            <div className="stat-card completed">
+            <div className="stat-card completed card-hover">
               <div className="stat-icon">✅</div>
               <div className="stat-content">
                 <h3>{completedJobs}</h3>
@@ -125,7 +129,7 @@ const Dashboard = () => {
               </div>
               <div className="stat-trend">₹{avgJobValue} avg</div>
             </div>
-            <div className="stat-card pending">
+            <div className="stat-card pending card-hover">
               <div className="stat-icon">⏳</div>
               <div className="stat-content">
                 <h3>{pendingJobs}</h3>
@@ -136,12 +140,12 @@ const Dashboard = () => {
           </div>
 
           {/* Content Grid */}
-          <div className="content-grid">
+          <div className="content-grid animate-on-scroll">
             {/* Recent Activity */}
-            <div className="content-card">
+            <div className="content-card card-animate">
               <div className="card-header">
                 <h2>Recent Activity</h2>
-                <Link to="/jobs" className="view-all">View All</Link>
+                <Link to="/jobs" className="view-all btn-animate">View All</Link>
               </div>
               <div className="activity-list">
                 {recentActivity.length > 0 ? recentActivity.map((activity, index) => (
@@ -168,7 +172,7 @@ const Dashboard = () => {
             </div>
 
             {/* Earnings & Performance */}
-            <div className="content-card">
+            <div className="content-card card-animate">
               <div className="card-header">
                 <h2>Earnings & Performance</h2>
               </div>
@@ -224,10 +228,10 @@ const Dashboard = () => {
     const avgBookingValue = completed > 0 ? Math.round(totalSpent / completed) : 0;
 
     return (
-      <div className="modern-dashboard">
+      <div className="modern-dashboard page-refresh-enter">
         <div className="dashboard-container">
           {/* Header Section */}
-          <div className="dashboard-header">
+          <div className="dashboard-header profile-card-animate">
             <div className="user-welcome">
               <div className="user-avatar user">
                 {name.charAt(0).toUpperCase()}
@@ -238,11 +242,11 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="header-actions">
-              <Link to="/search" className="action-btn primary">
+              <Link to="/search" className="action-btn primary btn-animate">
                 <span className="btn-icon">🔍</span>
                 Find Services
               </Link>
-              <Link to="/edit-profile" className="action-btn secondary">
+              <Link to="/edit-profile" className="action-btn secondary btn-animate">
                 <span className="btn-icon">⚙️</span>
                 Settings
               </Link>
@@ -250,8 +254,8 @@ const Dashboard = () => {
           </div>
 
           {/* Stats Grid */}
-          <div className="stats-grid">
-            <div className="stat-card spending">
+          <div className="stats-grid animate-on-scroll stagger-animate">
+            <div className="stat-card spending card-hover">
               <div className="stat-icon">💳</div>
               <div className="stat-content">
                 <h3>₹{totalSpent.toLocaleString()}</h3>
@@ -259,7 +263,7 @@ const Dashboard = () => {
               </div>
               <div className="stat-trend">All time</div>
             </div>
-            <div className="stat-card monthly">
+            <div className="stat-card monthly card-hover">
               <div className="stat-icon">📊</div>
               <div className="stat-content">
                 <h3>₹{thisMonthSpent.toLocaleString()}</h3>
@@ -267,7 +271,7 @@ const Dashboard = () => {
               </div>
               <div className="stat-badge">{thisMonthBookings.length} bookings</div>
             </div>
-            <div className="stat-card completed">
+            <div className="stat-card completed card-hover">
               <div className="stat-icon">✅</div>
               <div className="stat-content">
                 <h3>{completed}</h3>
@@ -275,7 +279,7 @@ const Dashboard = () => {
               </div>
               <div className="stat-trend">₹{avgBookingValue} avg</div>
             </div>
-            <div className="stat-card upcoming">
+            <div className="stat-card upcoming card-hover">
               <div className="stat-icon">📅</div>
               <div className="stat-content">
                 <h3>{upcoming}</h3>
@@ -286,12 +290,12 @@ const Dashboard = () => {
           </div>
 
           {/* Content Grid */}
-          <div className="content-grid">
+          <div className="content-grid animate-on-scroll">
             {/* Recent Bookings */}
-            <div className="content-card">
+            <div className="content-card card-animate">
               <div className="card-header">
                 <h2>Recent Bookings</h2>
-                <Link to="/my-bookings" className="view-all">View All</Link>
+                <Link to="/my-bookings" className="view-all btn-animate">View All</Link>
               </div>
               <div className="activity-list">
                 {recentActivity.length > 0 ? recentActivity.map((booking, index) => (
@@ -319,7 +323,7 @@ const Dashboard = () => {
             </div>
 
             {/* Spending & Stats */}
-            <div className="content-card">
+            <div className="content-card card-animate">
               <div className="card-header">
                 <h2>Spending Overview</h2>
               </div>

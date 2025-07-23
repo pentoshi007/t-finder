@@ -2,6 +2,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Technician = require('../models/Technician');
+const Booking = require('../models/Booking');
+const Review = require('../models/Review');
 
 // @desc    Register a new technician
 // @route   POST /api/technicians/register
@@ -175,26 +177,63 @@ exports.getTechnicianById = async (req, res) => {
 // @route   POST /api/technicians/:id/reviews
 // @access  Private
 exports.addReview = async (req, res) => {
-  const { reviewerName, rating, comment } = req.body;
+  const { rating, comment } = req.body;
+  const technicianId = req.params.id;
+  const userId = req.user.id;
 
   try {
-    const technician = await Technician.findById(req.params.id);
-
-    if (!technician) {
-      return res.status(404).json({ msg: 'Technician not found' });
+    // 1. Check for completed booking
+    const completedBooking = await Booking.findOne({
+      user: userId,
+      technician: technicianId,
+      status: 'completed',
+    });
+    if (!completedBooking) {
+      return res.status(403).json({ msg: 'You can only review after completing a booking with this technician.' });
     }
 
-    const newReview = {
-      reviewerName,
-      rating: Number(rating),
+    // 2. Prevent duplicate review
+    const existingReview = await Review.findOne({ user: userId, technician: technicianId });
+    if (existingReview) {
+      return res.status(400).json({ msg: 'You have already reviewed this technician.' });
+    }
+
+    // 3. Create review
+    const review = new Review({
+      user: userId,
+      technician: technicianId,
+      rating,
       comment,
-    };
+    });
+    await review.save();
 
-    technician.reviews.unshift(newReview);
+    // 4. Update technician average rating
+    const stats = await Review.aggregate([
+      { $match: { technician: review.technician } },
+      { $group: { _id: '$technician', averageRating: { $avg: '$rating' } } },
+    ]);
+    if (stats.length > 0) {
+      await require('../models/Technician').findByIdAndUpdate(technicianId, {
+        averageRating: Math.round(stats[0].averageRating * 10) / 10,
+      });
+    }
 
-    await technician.save();
+    res.status(201).json(review);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};
 
-    res.json(technician.reviews);
+// @desc    Get all reviews for a technician
+// @route   GET /api/technicians/:id/reviews
+// @access  Public
+exports.getReviewsForTechnician = async (req, res) => {
+  try {
+    const reviews = await Review.find({ technician: req.params.id })
+      .populate('user', 'name')
+      .sort({ createdAt: -1 });
+    res.json(reviews);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

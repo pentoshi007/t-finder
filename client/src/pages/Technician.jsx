@@ -4,6 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import AuthContext from '../context/AuthContext';
 import BookingModal from '../components/BookingModal';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Page.css';
 import './Technician.css';
 
@@ -15,38 +16,59 @@ const Technician = () => {
   const [loading, setLoading] = useState(true);
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [reviewForm, setReviewForm] = useState({ rating: 5, comment: '' });
+  const [hasReviewed, setHasReviewed] = useState(false);
+  const [canReview, setCanReview] = useState(false);
 
   const fetchTechnician = async () => {
     try {
       const res = await axios.get(`/api/technicians/${id}`);
       setTechnician(res.data);
-      // Mock reviews for now - you can implement actual reviews later
-      setReviews([
-        {
-          _id: '1',
-          user: { name: 'John Doe' },
-          rating: 5,
-          comment: 'Excellent service! Very professional and fixed the issue quickly.',
-          createdAt: new Date().toISOString()
-        },
-        {
-          _id: '2',
-          user: { name: 'Jane Smith' },
-          rating: 4,
-          comment: 'Good work, arrived on time and completed the job efficiently.',
-          createdAt: new Date().toISOString()
-        }
-      ]);
-    } catch (err) {
-      console.error(err);
+    } catch {
       toast.error('Failed to load technician details');
     }
     setLoading(false);
   };
 
+  const fetchReviews = async () => {
+    try {
+      const res = await axios.get(`/api/technicians/${id}/reviews`);
+      setReviews(res.data);
+      if (user && res.data.some(r => r.user && r.user._id === user._id)) {
+        setHasReviewed(true);
+      } else {
+        setHasReviewed(false);
+      }
+    } catch {
+      setReviews([]);
+    }
+  };
+
+  const checkCanReview = async () => {
+    if (!user || user.role !== 'user') return setCanReview(false);
+    try {
+      const bookingsRes = await axios.get('/api/bookings/my-bookings', {
+        headers: { 'x-auth-token': localStorage.getItem('token') },
+      });
+      const completed = bookingsRes.data.some(
+        b => b.technician && b.technician._id === id && b.status === 'completed'
+      );
+      setCanReview(completed);
+    } catch {
+      setCanReview(false);
+    }
+  };
+
+  // Initialize scroll animations
+  useScrollAnimation();
+
   useEffect(() => {
     fetchTechnician();
-  }, [id]);
+    fetchReviews();
+    checkCanReview();
+    // eslint-disable-next-line
+  }, [id, user]);
 
   const handleBookingSuccess = (booking) => {
     toast.success('Booking created successfully!');
@@ -72,6 +94,26 @@ const Technician = () => {
     }
 
     return stars;
+  };
+
+  // Review form handlers
+  const handleReviewChange = e => {
+    setReviewForm({ ...reviewForm, [e.target.name]: e.target.value });
+  };
+  const handleReviewSubmit = async e => {
+    e.preventDefault();
+    try {
+      await axios.post(`/api/technicians/${id}/reviews`, reviewForm, {
+        headers: { 'x-auth-token': localStorage.getItem('token') },
+      });
+      toast.success('Review submitted!');
+      setShowReviewModal(false);
+      setReviewForm({ rating: 5, comment: '' });
+      fetchReviews();
+      setHasReviewed(true);
+    } catch (err) {
+      toast.error(err.response?.data?.msg || 'Could not submit review');
+    }
   };
 
   if (loading) {
@@ -100,7 +142,7 @@ const Technician = () => {
 
   return (
     <div className="page-container">
-      <div className="technician-profile">
+      <div className="technician-profile tech-profile-animate">
         {/* Header Section */}
         <div className="profile-header">
           <div className="profile-avatar">
@@ -169,6 +211,11 @@ const Technician = () => {
             {/* Reviews Section */}
             <div className="section">
               <h3>Customer Reviews</h3>
+              {user && canReview && !hasReviewed && (
+                <button className="btn-animate" style={{ marginBottom: 16 }} onClick={() => setShowReviewModal(true)}>
+                  Leave a Review
+                </button>
+              )}
               {reviews.length > 0 ? (
                 <div className="reviews-list">
                   {reviews.map((review) => (
@@ -176,12 +223,12 @@ const Technician = () => {
                       <div className="review-header">
                         <div className="reviewer-info">
                           <div className="reviewer-avatar">
-                            {review.user.name.charAt(0).toUpperCase()}
+                            {review.user?.name?.charAt(0).toUpperCase() || '?'}
                           </div>
                           <div>
-                            <h4>{review.user.name}</h4>
+                            <h4>{review.user?.name || 'User'}</h4>
                             <div className="review-rating">
-                              {renderStars(review.rating)}
+                              {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
                             </div>
                           </div>
                         </div>
@@ -238,6 +285,33 @@ const Technician = () => {
         </div>
       </div>
 
+      {/* Review Modal */}
+      {showReviewModal && (
+        <div className="modal-overlay" onClick={() => setShowReviewModal(false)}>
+          <div className="booking-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 420 }}>
+            <div className="modal-header">
+              <h2>Leave a Review</h2>
+              <button className="close-btn" onClick={() => setShowReviewModal(false)}>&times;</button>
+            </div>
+            <form className="booking-form" onSubmit={handleReviewSubmit}>
+              <div className="form-group">
+                <label>Rating</label>
+                <select name="rating" value={reviewForm.rating} onChange={handleReviewChange} required>
+                  {[5,4,3,2,1].map(r => <option key={r} value={r}>{r} Star{r>1?'s':''}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Comment</label>
+                <textarea name="comment" value={reviewForm.comment} onChange={handleReviewChange} required rows={3} maxLength={400} placeholder="Share your experience..." />
+              </div>
+              <div className="form-actions">
+                <button type="button" className="cancel-btn" onClick={() => setShowReviewModal(false)}>Cancel</button>
+                <button type="submit" className="book-btn btn-animate">Submit Review</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
       {/* Booking Modal */}
       <BookingModal
         technician={technician}

@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Search.css';
 import AuthContext from '../context/AuthContext';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 
 const Search = () => {
     const [searchParams] = useSearchParams();
@@ -47,6 +48,9 @@ const Search = () => {
     // In useEffect, always call fetchTechnicians(true) with reset=true when filters change
     const [showSuggestions, setShowSuggestions] = useState(false);
     const suggestionsRef = useRef(null);
+
+    // Initialize scroll animations
+    useScrollAnimation();
 
     useEffect(() => {
         fetchCategories();
@@ -162,8 +166,8 @@ const Search = () => {
     }
 
     return (
-        <div className="search-outer-container">
-            <div className="search-header">
+        <div className="search-outer-container page-refresh-enter">
+            <div className="search-header animate-on-scroll">
                 <h1>Find Technicians</h1>
                 <p>Discover verified professionals in your area</p>
                 {isFilterActive && (
@@ -171,11 +175,11 @@ const Search = () => {
                 )}
             </div>
             <div className="search-content">
-                <aside className="filters-sidebar">
+                <aside className="filters-sidebar animate-on-scroll">
                     {/* Filters Sidebar (unchanged) */}
                     <div className="filters-header">
                         <h3>Filters</h3>
-                        <button onClick={clearFilters} className="clear-filters">Clear All</button>
+                        <button onClick={clearFilters} className="clear-filters btn-animate">Clear All</button>
                     </div>
                     {/* ...filter groups... */}
                     <div className="filter-group">
@@ -279,11 +283,11 @@ const Search = () => {
                         </div>
                     ) : displayedTechnicians.length > 0 ? (
                         <>
-                            <div className="technicians-grid">
+                            <div className="technicians-grid stagger-animate">
                                 {displayedTechnicians.map((tech) => (
                                     <div
                                         key={tech._id}
-                                        className="technician-card"
+                                        className="technician-card card-hover"
                                         onClick={() => navigate(`/technician/${tech._id}`)}
                                     >
                                         {/* ...card content... */}
@@ -317,7 +321,7 @@ const Search = () => {
                                                 <span className="rate-amount">₹{tech.hourlyRate}</span>
                                                 <span className="rate-unit">/hour</span>
                                             </div>
-                                            <button className="book-now-btn">View Profile & Book</button>
+                                            <button className="book-now-btn btn-animate">View Profile & Book</button>
                                         </div>
                                     </div>
                                 ))}
@@ -325,7 +329,7 @@ const Search = () => {
                             {!isFilterActive && hasMore && (
                                 <div className="load-more-container">
                                     <button
-                                        className="load-more-btn"
+                                        className="load-more-btn btn-animate"
                                         onClick={() => fetchTechnicians(false)}
                                         disabled={loading}
                                     >
@@ -339,7 +343,7 @@ const Search = () => {
                             <div className="no-results-icon">🔍</div>
                             <h3>No technicians found</h3>
                             <p>Try adjusting your filters or search criteria</p>
-                            <button onClick={clearFilters} className="reset-search-btn">
+                            <button onClick={clearFilters} className="reset-search-btn btn-animate">
                                 Reset Search
                             </button>
                         </div>

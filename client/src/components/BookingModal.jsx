@@ -101,8 +101,8 @@ const BookingModal = ({ technician, isOpen, onClose, onBookingSuccess }) => {
     if (!isOpen || !technician) return null;
 
     return (
-        <div className="modal-overlay" onClick={onClose}>
-            <div className="booking-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-overlay modal-overlay-animate" onClick={onClose}>
+            <div className="booking-modal modal-animate" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
                     <h2>Book Service</h2>
                     <button className="close-btn" onClick={onClose}>×</button>
@@ -119,8 +119,8 @@ const BookingModal = ({ technician, isOpen, onClose, onBookingSuccess }) => {
                     </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="booking-form">
-                    {error && <div className="error-message">{error}</div>}
+                <form onSubmit={handleSubmit} className="booking-form form-animate">
+                    {error && <div className="error-message error-shake">{error}</div>}
 
                     <div className="form-group">
                         <label>Service Type *</label>
@@ -130,6 +130,7 @@ const BookingModal = ({ technician, isOpen, onClose, onBookingSuccess }) => {
                             value={formData.service}
                             onChange={handleChange}
                             placeholder="e.g., AC Repair, Plumbing Fix"
+                            className="form-input-animate"
                             required
                         />
                     </div>
@@ -141,6 +142,7 @@ const BookingModal = ({ technician, isOpen, onClose, onBookingSuccess }) => {
                             value={formData.description}
                             onChange={handleChange}
                             placeholder="Describe the issue or service needed"
+                            className="form-input-animate"
                             rows="3"
                             required
                         />
@@ -154,6 +156,7 @@ const BookingModal = ({ technician, isOpen, onClose, onBookingSuccess }) => {
                                 name="scheduledDate"
                                 value={formData.scheduledDate}
                                 onChange={handleChange}
+                                className="form-input-animate"
                                 min={getMinDate()}
                                 required
                             />
@@ -165,6 +168,7 @@ const BookingModal = ({ technician, isOpen, onClose, onBookingSuccess }) => {
                                 name="scheduledTime"
                                 value={formData.scheduledTime}
                                 onChange={handleChange}
+                                className="form-input-animate"
                                 required
                                 disabled={!formData.scheduledDate}
                             >
@@ -183,6 +187,7 @@ const BookingModal = ({ technician, isOpen, onClose, onBookingSuccess }) => {
                                 name="duration"
                                 value={formData.duration}
                                 onChange={handleChange}
+                                className="form-input-animate"
                                 required
                             >
                                 <option value={1}>1 hour</option>
@@ -281,7 +286,7 @@ const BookingModal = ({ technician, isOpen, onClose, onBookingSuccess }) => {
                         <button type="button" onClick={onClose} className="cancel-btn">
                             Cancel
                         </button>
-                        <button type="submit" disabled={loading} className="book-btn">
+                        <button type="submit" disabled={loading} className="book-btn btn-animate">
                             {loading ? 'Booking...' : 'Book Now'}
                         </button>
                     </div>

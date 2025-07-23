@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
+import toast from 'react-hot-toast';
 import './Page.css';
 import './Dashboard.css';
 
@@ -11,6 +12,10 @@ const MyBookings = () => {
   const [error, setError] = useState('');
   const [expandedId, setExpandedId] = useState(null);
   const [filter, setFilter] = useState('all');
+  const [reviewModal, setReviewModal] = useState({ open: false, technicianId: null, technicianName: '', bookingId: null });
+  const [reviewForm, setReviewForm] = useState({ rating: 5, comment: '' });
+  const [reviewedTechs, setReviewedTechs] = useState([]);
+  const [expandedReviews, setExpandedReviews] = useState({}); // { technicianId: [reviews] }
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -36,6 +41,29 @@ const MyBookings = () => {
     }
   }, [user]);
 
+  // Fetch which technicians the user has already reviewed
+  useEffect(() => {
+    const fetchReviewedTechs = async () => {
+      if (!user) return;
+      try {
+        // Get all reviews by this user
+        const res = await axios.get('/api/technicians'); // get all techs
+        const techIds = res.data.map(t => t._id);
+        const reviewed = [];
+        for (let techId of techIds) {
+          const reviewsRes = await axios.get(`/api/technicians/${techId}/reviews`);
+          if (reviewsRes.data.some(r => r.user && r.user._id === user._id)) {
+            reviewed.push(techId);
+          }
+        }
+        setReviewedTechs(reviewed);
+      } catch {
+        setReviewedTechs([]);
+      }
+    };
+    fetchReviewedTechs();
+  }, [user]);
+
   const handleCancel = async (bookingId) => {
     if (window.confirm('Are you sure you want to cancel this booking?')) {
       try {
@@ -47,9 +75,29 @@ const MyBookings = () => {
     }
   };
 
-  // Placeholder for review logic
-  const handleReview = () => {
-    alert('Review functionality coming soon!');
+  // Review modal logic
+  const openReviewModal = (technicianId, technicianName, bookingId) => {
+    setReviewModal({ open: true, technicianId, technicianName, bookingId });
+    setReviewForm({ rating: 5, comment: '' });
+  };
+  const closeReviewModal = () => {
+    setReviewModal({ open: false, technicianId: null, technicianName: '', bookingId: null });
+  };
+  const handleReviewChange = e => {
+    setReviewForm({ ...reviewForm, [e.target.name]: e.target.value });
+  };
+  const handleReviewSubmit = async e => {
+    e.preventDefault();
+    try {
+      await axios.post(`/api/technicians/${reviewModal.technicianId}/reviews`, reviewForm, {
+        headers: { 'x-auth-token': localStorage.getItem('token') },
+      });
+      setReviewedTechs([...reviewedTechs, reviewModal.technicianId]);
+      closeReviewModal();
+      toast.success('Review submitted!');
+    } catch (err) {
+      alert(err.response?.data?.msg || 'Could not submit review');
+    }
   };
 
   const filteredBookings = bookings.filter(booking => {
@@ -65,6 +113,17 @@ const MyBookings = () => {
       case 'cancelled': return '❌';
       case 'rejected': return '🚫';
       default: return '📋';
+    }
+  };
+
+  // Fetch reviews for a technician when a booking is expanded
+  const fetchReviewsForTechnician = async (technicianId) => {
+    if (!technicianId || expandedReviews[technicianId]) return;
+    try {
+      const res = await axios.get(`/api/technicians/${technicianId}/reviews`);
+      setExpandedReviews(prev => ({ ...prev, [technicianId]: res.data }));
+    } catch {
+      setExpandedReviews(prev => ({ ...prev, [technicianId]: [] }));
     }
   };
 
@@ -135,6 +194,9 @@ const MyBookings = () => {
             <div className="jobs-grid">
               {filteredBookings.map(booking => {
                 const isExpanded = expandedId === booking._id;
+                const alreadyReviewed = reviewedTechs.includes(booking.technician?._id);
+                // Fetch reviews when expanded
+                if (isExpanded && booking.technician?._id) fetchReviewsForTechnician(booking.technician._id);
                 return (
                   <div
                     key={booking._id}
@@ -218,12 +280,17 @@ const MyBookings = () => {
                               ❌ Cancel Booking
                             </button>
                           )}
-                          {booking.status === 'completed' && (
+                          {booking.status === 'completed' && !alreadyReviewed && (
                             <button
                               className="action-btn review"
-                              onClick={() => handleReview()}
+                              onClick={() => openReviewModal(booking.technician._id, booking.technician.user.name, booking._id)}
                             >
                               ⭐ Leave Review
+                            </button>
+                          )}
+                          {booking.status === 'completed' && alreadyReviewed && (
+                            <button className="action-btn review" disabled>
+                              ⭐ Reviewed
                             </button>
                           )}
                           {booking.technician?.user?.name && (
@@ -235,6 +302,37 @@ const MyBookings = () => {
                             </button>
                           )}
                         </div>
+                        {/* Show reviews for this technician */}
+                        <div style={{ marginTop: 18 }}>
+                          <h4 style={{ color: '#fff', marginBottom: 8 }}>Reviews for {booking.technician?.user?.name || 'Technician'}</h4>
+                          {expandedReviews[booking.technician?._id] && expandedReviews[booking.technician._id].length > 0 ? (
+                            <div className="reviews-list">
+                              {expandedReviews[booking.technician._id].map((review) => (
+                                <div key={review._id} className="review-card">
+                                  <div className="review-header">
+                                    <div className="reviewer-info">
+                                      <div className="reviewer-avatar">
+                                        {review.user?.name?.charAt(0).toUpperCase() || '?'}
+                                      </div>
+                                      <div>
+                                        <h4>{review.user?.name || 'User'}</h4>
+                                        <div className="review-rating">
+                                          {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <span className="review-date">
+                                      {new Date(review.createdAt).toLocaleDateString()}
+                                    </span>
+                                  </div>
+                                  <p className="review-comment">{review.comment}</p>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="no-reviews">No reviews yet for this technician.</p>
+                          )}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -244,6 +342,33 @@ const MyBookings = () => {
           )}
         </div>
       </div>
+      {/* Review Modal */}
+      {reviewModal.open && (
+        <div className="modal-overlay" onClick={closeReviewModal}>
+          <div className="booking-modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 420 }}>
+            <div className="modal-header">
+              <h2>Leave a Review for {reviewModal.technicianName}</h2>
+              <button className="close-btn" onClick={closeReviewModal}>&times;</button>
+            </div>
+            <form className="booking-form" onSubmit={handleReviewSubmit}>
+              <div className="form-group">
+                <label>Rating</label>
+                <select name="rating" value={reviewForm.rating} onChange={handleReviewChange} required>
+                  {[5,4,3,2,1].map(r => <option key={r} value={r}>{r} Star{r>1?'s':''}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Comment</label>
+                <textarea name="comment" value={reviewForm.comment} onChange={handleReviewChange} required rows={3} maxLength={400} placeholder="Share your experience..." />
+              </div>
+              <div className="form-actions">
+                <button type="button" className="cancel-btn" onClick={closeReviewModal}>Cancel</button>
+                <button type="submit" className="book-btn btn-animate">Submit Review</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

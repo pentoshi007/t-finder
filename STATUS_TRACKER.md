@@ -16,16 +16,15 @@
 | Book appointment flow | ✔️ | Success toast & dashboard refresh |
 | User dashboard (appointments list) | ✔️ | Protected route |
 | Technician availability & services listing | ✔️ | Shows skills, rates |
-| Password reset (email) | ❌ | Needs backend email + UI form |
-| Notifications (booking / review) | ❌ | Toasts exist, but push/email pending |
+
 
 ## 2. UI / UX
 | Task | Status | Notes |
 |------|:------:|-------|
 | Glassmorphic theme components | ✔️ | Login, Modals, Dropdowns |
 | Mobile responsiveness | ❌ | Audit with dev-tools & add media queries |
-
 | Loading / empty states everywhere | ✔️ | Spinners & messages added |
+| Animations & transitions | ✔️ | Page transitions, scroll animations, form/card animations |
 
 ## 3. Backend APIs
 | Endpoint | Status | Notes |
@@ -39,7 +38,7 @@
 | `/api/technicians/:id/reviews` (GET/POST) | ✔️ |
 | `/api/bookings` create | ✔️ |
 | Rate-limiting / security headers | ❌ | Use `helmet`, `express-rate-limit` |
-| Automated tests (Jest/Supertest) | ❌ | Add unit + integration tests |
+
 
 ## 4. DevOps & Tooling
 | Task | Status | Free-tier Suggestion |
@@ -76,5 +75,6 @@
 5. Ensure **mobile responsiveness** and optional dark-mode.
 6. Set up **CI** (lint + tests) with GitHub Actions.
 7. Write **API docs** & contribution guide.
+8. Fine-tune **animations** for performance optimization.
 
 Feel free to tick boxes as you progress! 🎯

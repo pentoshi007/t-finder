@@ -79,6 +79,13 @@ export const AuthProvider = ({ children }) => {
       const res = await axios.post('/api/users/login', formData);
       localStorage.setItem('token', res.data.token); // Set token before dispatch
       console.log('AuthContext: Login success, token:', res.data.token);
+
+      // Add login success animation to body
+      document.body.classList.add('login-success-animation');
+      setTimeout(() => {
+        document.body.classList.remove('login-success-animation');
+      }, 600);
+
       dispatch({ type: 'LOGIN_SUCCESS', payload: res.data });
       await loadUser(); // Await this to ensure user data is loaded before success toast
       toast.success('Logged in successfully!');
@@ -93,8 +100,14 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     console.log('AuthContext: Logging out, clearing token and user.');
-    dispatch({ type: 'LOGOUT' });
-    toast('Logged out.');
+
+    // Add logout animation to body
+    document.body.classList.add('logout-animation');
+    setTimeout(() => {
+      document.body.classList.remove('logout-animation');
+      dispatch({ type: 'LOGOUT' });
+      toast('Logged out.');
+    }, 400);
   };
 
   return (

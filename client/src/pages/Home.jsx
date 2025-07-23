@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css';
 import AuthContext from '../context/AuthContext';
+import useScrollAnimation from '../hooks/useScrollAnimation';
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
@@ -13,6 +14,9 @@ const Home = () => {
   const { user } = useContext(AuthContext);
   const isTechnician = user && user.user && user.technician;
   const [locations, setLocations] = useState([]);
+
+  // Initialize scroll animations
+  useScrollAnimation();
 
   useEffect(() => {
     fetchCategories();
@@ -85,7 +89,7 @@ const Home = () => {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="search-select"
                     >
-                      <option value="">Service</option>
+                      <option value="">Select a service...</option>
                       {categories.map(cat => (
                         <option key={cat._id} value={cat.name}>{cat.name}</option>
                       ))}
@@ -96,7 +100,7 @@ const Home = () => {
                       onChange={(e) => setSelectedLocation(e.target.value)}
                       className="search-select"
                     >
-                      <option value="">Location</option>
+                      <option value="">Choose a location...</option>
                       {locations.map(city => (
                         <option key={city} value={city}>{city}</option>
                       ))}
@@ -144,8 +148,8 @@ const Home = () => {
       </header>
 
       {/* Stats Section */}
-      <section className="stats-section">
-        <div className="stats-container">
+      <section className="stats-section animate-on-scroll">
+        <div className="stats-container stagger-animate">
           {stats.map((stat, index) => (
             <div key={index} className="stat-item">
               <h3 className="stat-number">{stat.number}</h3>
@@ -156,9 +160,9 @@ const Home = () => {
       </section>
 
       {/* How It Works */}
-      <section className="how-it-works-section">
+      <section className="how-it-works-section animate-on-scroll">
         <h2 className="section-title">How T-Finder Works</h2>
-        <div className="steps-container">
+        <div className="steps-container stagger-animate">
           <div className="step">
             <div className="step-icon">🔍</div>
             <h3>Search & Compare</h3>
@@ -178,11 +182,11 @@ const Home = () => {
       </section>
 
       {/* Featured Categories */}
-      <section className="featured-categories-section">
+      <section className="featured-categories-section animate-on-scroll">
         <h2 className="section-title">Popular Services</h2>
-        <div className="categories-grid">
+        <div className="categories-grid stagger-animate">
           {categories.slice(0, 8).map((category) => (
-            <div key={category._id} className="category-card" onClick={() => navigate(`/search?category=${category.name}`)}>
+            <div key={category._id} className="category-card card-hover" onClick={() => navigate(`/search?category=${category.name}`)}>
               <div className="category-icon">
                 {category.name === 'Plumber' && '🔧'}
                 {category.name === 'Electrician' && '⚡'}
@@ -201,11 +205,11 @@ const Home = () => {
       </section>
 
       {/* Featured Technicians */}
-      <section className="featured-technicians-section">
+      <section className="featured-technicians-section animate-on-scroll">
         <h2 className="section-title">Top Rated Technicians</h2>
-        <div className="technicians-grid">
+        <div className="technicians-grid stagger-animate">
           {featuredTechnicians.map((tech) => (
-            <div key={tech._id} className="technician-card" onClick={() => navigate(`/technician/${tech._id}`)}>
+            <div key={tech._id} className="technician-card card-hover" onClick={() => navigate(`/technician/${tech._id}`)}>
               <div className="tech-avatar">
                 {tech.user.name.charAt(0).toUpperCase()}
               </div>
@@ -220,15 +224,15 @@ const Home = () => {
             </div>
           ))}
         </div>
-        <div className="section-cta">
-          <Link to="/search" className="view-all-btn">View All Technicians</Link>
+        <div className="section-cta animate-on-scroll delay-2">
+          <Link to="/search" className="view-all-btn btn-animate">View All Technicians</Link>
         </div>
       </section>
 
       {/* Why Choose Us */}
-      <section className="why-choose-us-section">
+      <section className="why-choose-us-section animate-on-scroll">
         <h2 className="section-title">Why Choose T-Finder?</h2>
-        <div className="features-container">
+        <div className="features-container stagger-animate">
           <div className="feature-item">
             <div className="feature-icon">✅</div>
             <h3>Verified Professionals</h3>
@@ -253,10 +257,10 @@ const Home = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="testimonials-section">
+      <section className="testimonials-section animate-on-scroll">
         <h2 className="section-title">What Our Customers Say</h2>
-        <div className="testimonials-container">
-          <div className="testimonial-card">
+        <div className="testimonials-container stagger-animate">
+          <div className="testimonial-card card-hover">
             <div className="testimonial-rating">⭐⭐⭐⭐⭐</div>
             <p>"Found an excellent plumber through T-Finder. Quick response, fair pricing, and quality work. Highly recommended!"</p>
             <div className="testimonial-author">
@@ -267,7 +271,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="testimonial-card">
+          <div className="testimonial-card card-hover">
             <div className="testimonial-rating">⭐⭐⭐⭐⭐</div>
             <p>"The electrician was professional, punctual, and solved my issue quickly. The booking process was seamless!"</p>
             <div className="testimonial-author">
@@ -278,7 +282,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="testimonial-card">
+          <div className="testimonial-card card-hover">
             <div className="testimonial-rating">⭐⭐⭐⭐⭐</div>
             <p>"Great platform! Found a reliable AC technician who fixed my unit perfectly. Will definitely use again."</p>
             <div className="testimonial-author">
@@ -293,13 +297,13 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
+      <section className="cta-section animate-on-scroll">
         <div className="cta-content">
           <h2>Ready to Get Started?</h2>
           <p>Join thousands of satisfied customers who trust T-Finder for their service needs</p>
           <div className="cta-buttons">
-            <Link to="/register" className="cta-primary">Find Technicians</Link>
-            <Link to="/register" className="cta-secondary">Become a Technician</Link>
+            <Link to="/register" className="cta-primary btn-animate">Find Technicians</Link>
+            <Link to="/register" className="cta-secondary btn-animate">Become a Technician</Link>
           </div>
         </div>
       </section>

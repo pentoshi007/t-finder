@@ -7,7 +7,9 @@ import { useState, useRef, useEffect } from 'react';
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
   let displayName = '';
   let avatarLetter = '';
@@ -29,14 +31,28 @@ const Navbar = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) &&
+        !event.target.classList.contains('mobile-menu-toggle')) {
+        setMobileMenuOpen(false);
+      }
     }
-    if (dropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
+
+    document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [dropdownOpen]);
+  }, [dropdownOpen, mobileMenuOpen]);
+
+  // Handle body scroll lock for mobile menu
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+
+    return () => {
+      document.body.classList.remove('mobile-menu-open');
+    };
+  }, [mobileMenuOpen]);
 
   const technicianDropdown = (
     <div className="navbar-dropdown" ref={dropdownRef}>
@@ -48,9 +64,9 @@ const Navbar = () => {
       </div>
       {dropdownOpen && (
         <ul className="navbar-dropdown-menu">
-          <li><NavLink to="/dashboard" onClick={() => setDropdownOpen(false)} className={({isActive}) => isActive ? 'active' : ''}>Dashboard</NavLink></li>
-          <li><NavLink to="/jobs" onClick={() => setDropdownOpen(false)} className={({isActive}) => isActive ? 'active' : ''}>My Jobs</NavLink></li>
-          <li><a onClick={() => { setDropdownOpen(false); logout(); }} href="#!">Logout</a></li>
+          <li><NavLink to="/dashboard" onClick={() => { setDropdownOpen(false); setMobileMenuOpen(false); }} className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink></li>
+          <li><NavLink to="/jobs" onClick={() => { setDropdownOpen(false); setMobileMenuOpen(false); }} className={({ isActive }) => isActive ? 'active' : ''}>My Jobs</NavLink></li>
+          <li><a onClick={() => { setDropdownOpen(false); setMobileMenuOpen(false); logout(); }} href="#!">Logout</a></li>
         </ul>
       )}
     </div>
@@ -66,29 +82,29 @@ const Navbar = () => {
       </div>
       {dropdownOpen && (
         <ul className="navbar-dropdown-menu">
-          <li><NavLink to="/dashboard" onClick={() => setDropdownOpen(false)} className={({isActive}) => isActive ? 'active' : ''}>Dashboard</NavLink></li>
-          <li><NavLink to="/my-bookings" onClick={() => setDropdownOpen(false)} className={({isActive}) => isActive ? 'active' : ''}>My Bookings</NavLink></li>
-          <li><NavLink to="/edit-profile" onClick={() => setDropdownOpen(false)} className={({isActive}) => isActive ? 'active' : ''}>Edit Profile</NavLink></li>
-          <li><a onClick={() => { setDropdownOpen(false); logout(); }} href="#!">Logout</a></li>
+          <li><NavLink to="/dashboard" onClick={() => { setDropdownOpen(false); setMobileMenuOpen(false); }} className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink></li>
+          <li><NavLink to="/my-bookings" onClick={() => { setDropdownOpen(false); setMobileMenuOpen(false); }} className={({ isActive }) => isActive ? 'active' : ''}>My Bookings</NavLink></li>
+          <li><NavLink to="/edit-profile" onClick={() => { setDropdownOpen(false); setMobileMenuOpen(false); }} className={({ isActive }) => isActive ? 'active' : ''}>Edit Profile</NavLink></li>
+          <li><a onClick={() => { setDropdownOpen(false); setMobileMenuOpen(false); logout(); }} href="#!">Logout</a></li>
         </ul>
       )}
     </div>
   );
 
   const authLinks = (
-    <ul className="navbar-links">
-      <li><NavLink to="/" className={({isActive}) => isActive ? 'active' : ''}>Home</NavLink></li>
-      {isUser && <li><NavLink to="/search" className={({isActive}) => isActive ? 'active' : ''}>Find Technicians</NavLink></li>}
+    <ul className={`navbar-links ${mobileMenuOpen ? 'active' : ''}`} ref={mobileMenuRef}>
+      <li><NavLink to="/" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink></li>
+      {isUser && <li><NavLink to="/search" onClick={() => setMobileMenuOpen(false)} className={({ isActive }) => isActive ? 'active' : ''}>Find Technicians</NavLink></li>}
       {isTechnician && technicianDropdown}
       {isUser && userDropdown}
     </ul>
   );
 
   const guestLinks = (
-    <ul className="navbar-links">
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/login">Login</Link></li>
-      <li><Link to="/register">Register</Link></li>
+    <ul className={`navbar-links ${mobileMenuOpen ? 'active' : ''}`} ref={mobileMenuRef}>
+      <li><NavLink to="/" onClick={() => setMobileMenuOpen(false)}>Home</NavLink></li>
+      <li><NavLink to="/login" onClick={() => setMobileMenuOpen(false)}>Login</NavLink></li>
+      <li><NavLink to="/register" onClick={() => setMobileMenuOpen(false)}>Register</NavLink></li>
     </ul>
   );
 
@@ -97,6 +113,13 @@ const Navbar = () => {
       <div className="navbar-brand">
         <Link to="/">T-Finder</Link>
       </div>
+      <button
+        className="mobile-menu-toggle"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        aria-label="Toggle menu"
+      >
+        {mobileMenuOpen ? '✕' : '☰'}
+      </button>
       <>{isAuthenticated ? authLinks : guestLinks}</>
     </nav>
   );

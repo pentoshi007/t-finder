@@ -399,3 +399,90 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+/* Responsive styles for Dashboard */
+@media (max-width: 768px) {
+  .tech-dashboard-card.refined {
+    padding: 4rem 2rem 2.5rem;
+    margin: 6rem auto;
+    max-width: 90%;
+  }
+  
+  .tech-dashboard-stats.refined {
+    gap: 1rem;
+  }
+  
+  .stat-card.refined {
+    padding: 1.25rem 1.5rem;
+    min-width: 100px;
+  }
+  
+  .tech-dashboard-actions.refined {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-link.refined,
+  .btn-link.secondary.refined {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .jobs-overhaul {
+    padding: 2rem 1.5rem;
+    min-width: auto;
+  }
+  
+  .job-card-overhaul {
+    padding: 1.5rem;
+  }
+  
+  .job-row {
+    font-size: 1rem;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .tech-dashboard-card.refined {
+    padding: 3rem 1.5rem 2rem;
+    margin: 4rem auto;
+    border-radius: 24px;
+  }
+  
+  .tech-dashboard-avatar.big {
+    width: 70px;
+    height: 70px;
+    font-size: 2.2rem;
+  }
+  
+  .tech-dashboard-title {
+    font-size: 1.75rem;
+  }
+  
+  .tech-dashboard-profile.refined {
+    font-size: 1rem;
+  }
+  
+  .stat-card.refined {
+    padding: 1rem;
+    min-width: 90px;
+  }
+  
+  .stat-value {
+    font-size: 1.3rem;
+  }
+  
+  .job-card-overhaul {
+    padding: 1.25rem 1rem;
+  }
+  
+  .job-label {
+    min-width: 60px;
+    font-size: 0.9rem;
+  }
+  
+  .job-status-chip {
+    font-size: 0.9rem;
+    padding: 0.25em 0.9em;
+  }
+}

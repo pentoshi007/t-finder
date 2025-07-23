@@ -79,27 +79,29 @@ const Home = () => {
             {!isTechnician && (
               <div className="hero-search">
                 <div className="search-container">
-                  <select
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="search-select"
-                  >
-                    <option value="">Select Service</option>
-                    {categories.map(cat => (
-                      <option key={cat._id} value={cat.name}>{cat.name}</option>
-                    ))}
-                  </select>
+                  <div className="search-row">
+                    <select
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="search-select"
+                    >
+                      <option value="">Service</option>
+                      {categories.map(cat => (
+                        <option key={cat._id} value={cat.name}>{cat.name}</option>
+                      ))}
+                    </select>
 
-                  <select
-                    value={selectedLocation}
-                    onChange={(e) => setSelectedLocation(e.target.value)}
-                    className="search-select"
-                  >
-                    <option value="">Select Location</option>
-                    {locations.map(city => (
-                      <option key={city} value={city}>{city}</option>
-                    ))}
-                  </select>
+                    <select
+                      value={selectedLocation}
+                      onChange={(e) => setSelectedLocation(e.target.value)}
+                      className="search-select"
+                    >
+                      <option value="">Location</option>
+                      {locations.map(city => (
+                        <option key={city} value={city}>{city}</option>
+                      ))}
+                    </select>
+                  </div>
 
                   <button onClick={handleSearch} className="search-button">
                     Find Technicians

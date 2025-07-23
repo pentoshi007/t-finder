@@ -18,6 +18,128 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* Mobile menu styles */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+    width: 95%;
+    top: 15px;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+  }
+  
+  .mobile-menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .navbar-links {
+    position: fixed;
+    top: 70px;
+    left: 2.5%;
+    right: 2.5%;
+    width: 95%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1rem;
+    transform: translateY(-150%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-links.active {
+    transform: translateY(0);
+  }
+  
+  /* Prevent body scroll when mobile menu is open */
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+  
+  .navbar-links li {
+    width: 100%;
+  }
+  
+  .navbar-links a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: background 0.2s ease;
+  }
+  
+  .navbar-links a:hover {
+    background: rgba(108, 99, 255, 0.2);
+    color: #fff;
+  }
+  
+  .navbar-dropdown {
+    width: 100%;
+  }
+  
+  .navbar-avatar {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .navbar-dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    top: 10px;
+    width: 95%;
+    padding: 10px 15px;
+  }
+  
+  .navbar-brand a {
+    font-size: 1.5em;
+  }
+  
+  .navbar-avatar {
+    padding: 0.3rem 0.75rem;
+    height: 36px;
+  }
+  
+  .navbar-avatar span:first-child {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+  
+  .navbar-name {
+    font-size: 0.9rem;
+  }
+}
+
 .navbar-brand a {
   color: #fff;
   text-decoration: none;

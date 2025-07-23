@@ -344,6 +344,10 @@
   .content-sidebar {
     order: -1;
   }
+  
+  .technician-profile {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -355,6 +359,11 @@
     grid-template-columns: 1fr;
     text-align: center;
     gap: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .profile-avatar {
+    margin: 0 auto;
   }
   
   .profile-actions {
@@ -371,5 +380,97 @@
   
   .sidebar-card {
     padding: 1rem;
+  }
+  
+  .review-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .review-date {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .technician-profile {
+    padding: 0.5rem;
+  }
+  
+  .profile-header {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  
+  .profile-info h1 {
+    font-size: 1.4rem;
+  }
+  
+  .profile-category {
+    font-size: 1rem;
+  }
+  
+  .profile-location {
+    font-size: 0.9rem;
+  }
+  
+  .section {
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+  }
+  
+  .section h3 {
+    font-size: 1.1rem;
+  }
+  
+  .skills-list {
+    gap: 0.25rem;
+  }
+  
+  .skill-tag {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  
+  .review-card {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  
+  .reviewer-info {
+    gap: 0.5rem;
+  }
+  
+  .reviewer-avatar {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .hourly-rate {
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .rate-amount {
+    font-size: 1.6rem;
+  }
+  
+  .book-service-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
+  
+  .sidebar-card {
+    padding: 0.75rem;
+    border-radius: 10px;
+  }
+  
+  .sidebar-card h4 {
+    font-size: 1rem;
   }
 }

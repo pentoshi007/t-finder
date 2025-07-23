@@ -9,6 +9,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 8rem 2rem;
+  overflow-x: hidden;
 }
 
 .search-header {
@@ -404,54 +405,170 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 901px) and (max-width: 1200px) {
   .technicians-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
+
 @media (max-width: 900px) {
+  .search-outer-container {
+    padding: 6rem 1.5rem;
+  }
+  
   .search-content {
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
+    margin-left: 0;
   }
+  
   .filters-sidebar {
     position: static;
     width: 100%;
     max-width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
+    padding: 1.5rem;
+    border-radius: 16px;
   }
-  .search-content {
-    margin-left: 0;
-  }
+  
   .results-section {
     width: 100%;
   }
-}
-@media (max-width: 600px) {
-  .search-outer-container {
-    padding: 1.5rem 0.5rem;
-  }
+  
   .technicians-grid {
-    grid-template-columns: 1fr;
-  }
-  .filters-sidebar {
-    padding: 1rem 0.5rem;
-  }
-  .technician-card {
-    padding: 1rem 0.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 }
 
-@media (max-width: 480px) {
-  .search-container {
-    padding: 0.5rem;
+@media (max-width: 768px) {
+  .search-outer-container {
+    padding: 5rem 1rem;
   }
   
   .search-header h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+  
+  .filters-sidebar {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+  
+  .filter-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  .filter-group select,
+  .filter-group input {
+    padding: 0.6rem;
+    font-size: 0.95rem;
   }
   
   .technician-card {
     padding: 1.5rem;
+  }
+  
+  .tech-footer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .book-now-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .technicians-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-outer-container {
+    padding: 4rem 0.75rem;
+  }
+  
+  .technicians-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .filters-sidebar {
+    padding: 1rem;
+  }
+  
+  .technician-card {
+    padding: 1.25rem;
+    min-height: auto;
+  }
+  
+  .tech-bio {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-outer-container {
+    padding: 7rem 0.75rem;
+  }
+  
+  .search-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .search-header p {
+    font-size: 1rem;
+  }
+  
+  .filters-sidebar {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  
+  .filters-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+  
+  .clear-filters {
+    width: 100%;
+    padding: 0.6rem;
+  }
+  
+  .filter-group select,
+  .filter-group input {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .technician-card {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  
+  .tech-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  
+  .tech-avatar {
+    margin: 0 auto;
+  }
+  
+  .tech-info {
+    text-align: center;
+  }
+  
+  .tech-skills {
+    justify-content: center;
+  }
+  
+  .tech-footer {
+    text-align: center;
   }
 }

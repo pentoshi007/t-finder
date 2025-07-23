@@ -52,9 +52,9 @@
     left: 2.5%;
     right: 2.5%;
     width: 95%;
-    background: rgba(12, 20, 30, 0.8);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    background: rgba(12, 20, 30, 0.98);
+    backdrop-filter: blur(48px);
+    -webkit-backdrop-filter: blur(48px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     flex-direction: column;

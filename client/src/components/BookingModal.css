@@ -244,13 +244,13 @@
 @media (max-width: 768px) {
   .modal-overlay {
     padding: 1rem;
-    align-items: flex-start;
+    align-items: center;
   }
   
   .booking-modal {
-    max-height: 95vh;
+    max-height: 90vh;
     width: 95%;
-    margin-top: 70px;
+    margin-top: 0;
   }
   
   .modal-header,
@@ -279,14 +279,14 @@
 @media (max-width: 480px) {
   .modal-overlay {
     padding: 0.5rem;
-    align-items: flex-start;
+    align-items: center;
   }
   
   .booking-modal {
-    max-height: 98vh;
+    max-height: 85vh;
     width: 98%;
     border-radius: 12px;
-    margin-top: 60px;
+    margin-top: 0;
   }
   
   .modal-header {

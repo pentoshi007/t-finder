@@ -18,6 +18,7 @@ T-Finder is a full-stack web application designed to connect users with skilled 
 - **Review and Rating System**: Users can leave feedback and ratings for technicians.
 - **Responsive Dashboard**: Separate dashboards for users and technicians to manage bookings, profiles, and reviews.
 - **Mobile-First Design**: A fully responsive UI that works beautifully on all devices.
+- **Server Information Popup**: Beautiful animated popup that informs users about the backend hosting on Render.com and provides guidance for server sleep issues.
 
 ## 🛠️ Tech Stack
 
@@ -53,10 +54,10 @@ This diagram illustrates the high-level architecture of the T-Finder application
 
 ```mermaid
 graph TD
-    A[User's Browser] -- HTTPS --> B{Frontend (React + Vite)};
-    B -- API Calls (Axios) --> C{Backend (Node.js + Express)};
-    C -- Mongoose ODM --> D[(MongoDB Database)];
-    C -- Manages Auth --> A;
+    A[User's Browser] -->|HTTPS| B{Frontend (React + Vite)};
+    B -->|API Calls (Axios)| C{Backend (Node.js + Express)};
+    C -->|Mongoose ODM| D[(MongoDB Database)];
+    C -->|Manages Auth| A;
 ```
 
 ## 🌊 User Flow

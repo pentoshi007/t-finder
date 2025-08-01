@@ -5,14 +5,14 @@ import ServerInfoPopup from './ServerInfoPopup';
 
 const Layout = ({ children }) => {
   return (
-    <>
+    <div className="relative">
       <ServerInfoPopup />
       <Navbar />
       <main className="main-content">
         {children}
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 

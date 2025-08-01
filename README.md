@@ -54,10 +54,10 @@ This diagram illustrates the high-level architecture of the T-Finder application
 
 ```mermaid
 graph TD
-    A[User's Browser] -->|HTTPS| B{Frontend (React + Vite)};
-    B -->|API Calls (Axios)| C{Backend (Node.js + Express)};
-    C -->|Mongoose ODM| D[(MongoDB Database)];
-    C -->|Manages Auth| A;
+    A[User's Browser] -->|HTTPS| B[Frontend React + Vite]
+    B -->|API Calls Axios| C[Backend Node.js + Express]
+    C -->|Mongoose ODM| D[(MongoDB Database)]
+    C -->|Manages Auth| A
 ```
 
 ## 🌊 User Flow

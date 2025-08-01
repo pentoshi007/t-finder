@@ -87,32 +87,7 @@ input, select, textarea {
   }
 }
 
-/* Server Info Popup - Always on top */
-.server-info-popup {
-  position: fixed !important;
-  top: 1rem !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 99999 !important;
-  width: calc(100% - 2rem) !important;
-  max-width: 28rem !important;
-  margin: 0 auto !important;
-}
 
-@media (max-width: 768px) {
-  .server-info-popup {
-    top: 0.5rem !important;
-    width: calc(100% - 1rem) !important;
-    max-width: none !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .server-info-popup {
-    top: 0.25rem !important;
-    width: calc(100% - 0.5rem) !important;
-  }
-}
 
 /* Fix for mobile navbar issues */
 @media (max-width: 768px) {

@@ -4,10 +4,7 @@
 
 T-Finder is a full-stack web application designed to connect users with skilled technicians for a variety of services. Users can browse technician profiles, read reviews, and book appointments seamlessly. The platform provides a robust dashboard for both users and technicians to manage their activities.
 
-## ✨ Live Demo
 
-- **Backend API**: [https://t-finder.onrender.com/](https://t-finder.onrender.com/)
-- **Frontend App**: [Your Deployed Frontend Link Here]
 
 ## 🚀 Key Features
 

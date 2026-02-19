@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import AuthContext from '../context/AuthContext';
@@ -12,6 +12,7 @@ const Technician = () => {
   const { id } = useParams();
   const { isAuthenticated, user } = useContext(AuthContext);
   const isTechnician = user && user.user && user.technician;
+  const navigate = useNavigate();
   const [technician, setTechnician] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -178,7 +179,14 @@ const Technician = () => {
               <span className="rate-unit">/hour</span>
             </div>
 
-            {isAuthenticated && user?.role !== 'technician' && !isTechnician && (
+            {!isAuthenticated ? (
+              <button
+                className="book-service-btn"
+                onClick={() => navigate('/login')}
+              >
+                Login to Book
+              </button>
+            ) : user?.role !== 'technician' && !isTechnician && (
               <button
                 className="book-service-btn"
                 onClick={() => setShowBookingModal(true)}

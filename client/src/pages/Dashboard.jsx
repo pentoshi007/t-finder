@@ -73,7 +73,6 @@ const Dashboard = () => {
   if (isTechnician) {
     const tech = user.technician;
     const name = user.user.name;
-    const email = user.user.email;
     const category = tech.category?.name || '';
     const experience = tech.experience;
     const hourlyRate = tech.hourlyRate;
@@ -226,11 +225,9 @@ const Dashboard = () => {
 
   if (!isTechnician && user) {
     const name = user.name;
-    const email = user.email;
     const totalBookings = appointments.length;
     const completed = appointments.filter(a => a.status === 'completed').length;
     const upcoming = appointments.filter(a => a.status === 'confirmed').length;
-    const cancelled = appointments.filter(a => a.status === 'cancelled' || a.status === 'rejected').length;
 
     // Calculate spending
     const totalSpent = appointments

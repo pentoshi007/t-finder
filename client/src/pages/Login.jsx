@@ -42,7 +42,7 @@ const Login = () => {
 
   return (
     <div className="page-container">
-      <div className="glass-container content-card">
+      <div className="content-card card-animate">
         <h2>Login</h2>
         <form onSubmit={onSubmit}>
           <div className="form-group">

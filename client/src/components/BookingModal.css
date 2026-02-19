@@ -226,13 +226,21 @@
 }
 
 .book-btn {
-  background: linear-gradient(135deg, #6c63ff, #00aaff);
+  padding: 0.875rem 1.5rem;
+  background: var(--brand-primary);
   color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.book-btn:hover:not(:disabled) {
+.book-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(108, 99, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  background: var(--primary-hover);
 }
 
 .book-btn:disabled {

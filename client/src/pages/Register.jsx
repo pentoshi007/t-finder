@@ -80,7 +80,7 @@ const Register = () => {
 
   return (
     <div className="page-container">
-      <div className="content-card">
+      <div className="content-card card-animate">
         <h2>Create Your Account</h2>
         <form onSubmit={onSubmit}>
           <div className="role-selector">

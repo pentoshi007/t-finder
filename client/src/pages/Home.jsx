@@ -87,9 +87,10 @@ const Home = () => {
       {/* Hero Section */}
       <header className="hero-section">
         <div className="hero-content">
-          <div className="hero-text">
+          <div className="hero-text-center">
             <h1 className="hero-title">
-              Find <span className="highlight">Trusted Local Technicians</span> for Every Need
+              Find <span className="highlight">Trusted Local Technicians</span>
+              <br />for Every Need
             </h1>
             <p className="hero-subtitle">
               Connect with verified professionals for home repairs, installations, and maintenance.
@@ -98,33 +99,41 @@ const Home = () => {
 
             {/* Search Bar */}
             {!isTechnician && (
-              <div className="hero-search">
+              <div className="hero-search-centered">
                 <div className="search-container">
-                  <div className="search-row">
-                    <select
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="search-select"
-                    >
-                      <option value="">Select a service...</option>
-                      {categories.map(cat => (
-                        <option key={cat._id} value={cat.name}>{cat.name}</option>
-                      ))}
-                    </select>
+                  <div className="search-inputs-wrapper">
+                    <div className="search-input-group">
+                      <FaWrench className="input-icon" />
+                      <select
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="search-select clean-select"
+                      >
+                        <option value="">What service do you need?</option>
+                        {categories.map(cat => (
+                          <option key={cat._id} value={cat.name}>{cat.name}</option>
+                        ))}
+                      </select>
+                    </div>
 
-                    <select
-                      value={selectedLocation}
-                      onChange={(e) => setSelectedLocation(e.target.value)}
-                      className="search-select"
-                    >
-                      <option value="">Choose a location...</option>
-                      {locations.map(city => (
-                        <option key={city} value={city}>{city}</option>
-                      ))}
-                    </select>
+                    <div className="search-divider"></div>
+
+                    <div className="search-input-group">
+                      <FaSearch className="input-icon" />
+                      <select
+                        value={selectedLocation}
+                        onChange={(e) => setSelectedLocation(e.target.value)}
+                        className="search-select clean-select"
+                      >
+                        <option value="">Where?</option>
+                        {locations.map(city => (
+                          <option key={city} value={city}>{city}</option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
-                  <button onClick={handleSearch} className="search-button">
+                  <button onClick={handleSearch} className="search-button solid-btn">
                     Find Technicians
                   </button>
                 </div>
@@ -132,34 +141,11 @@ const Home = () => {
             )}
 
             {!isTechnician && (
-              <div className="hero-actions">
-                <Link to="/register" className="hero-cta-primary">Get Started</Link>
-                <Link to="/register?role=technician" className="hero-cta-secondary">Join as Technician</Link>
+              <div className="hero-actions-centered">
+                <Link to="/register" className="hero-cta-primary solid-btn">Get Started</Link>
+                <Link to="/register?role=technician" className="hero-cta-secondary outline-btn">Join as Technician</Link>
               </div>
             )}
-          </div>
-
-          <div className="hero-image">
-            <div className="hero-card">
-              <div className="service-preview">
-                <h3>Quick Service Booking</h3>
-                <div className="service-item">
-                  <span className="service-icon"><FaWrench /></span>
-                  <span>Plumber - Available Now</span>
-                  <span className="service-rating"><FaStar /> 4.9</span>
-                </div>
-                <div className="service-item">
-                  <span className="service-icon"><FaBolt /></span>
-                  <span>Electrician - 2 hrs away</span>
-                  <span className="service-rating"><FaStar /> 4.8</span>
-                </div>
-                <div className="service-item">
-                  <span className="service-icon"><FaHammer /></span>
-                  <span>Carpenter - Book for tomorrow</span>
-                  <span className="service-rating"><FaStar /> 4.7</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </header>

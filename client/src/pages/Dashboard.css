@@ -6,7 +6,8 @@
 }
 
 .dashboard-container {
-  max-width: 1400px;
+  width: 90%;
+  max-width: 1200px;
   margin: 0 auto;
   padding-top: 6rem;
 }
@@ -17,11 +18,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3rem;
-  background: rgba(255, 255, 255, 0.08);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow);
   padding: 2rem;
   margin-top: 1rem;
 }
@@ -46,24 +48,20 @@
 }
 
 .user-avatar.technician {
-  background: linear-gradient(135deg, #6c63ff, #00aaff);
-  box-shadow: 0 8px 32px rgba(108, 99, 255, 0.3);
+  background: var(--brand-primary);
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.3);
 }
 
 .user-avatar.user {
-  background: linear-gradient(135deg, #ff6b6b, #ffa259);
-  box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+  background: var(--brand-secondary);
+  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.3);
 }
 
 .user-info h1 {
-  color: #fff;
+  color: var(--text-primary);
   font-size: 2.2rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
-  background: linear-gradient(135deg, #fff, #e0e0e0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .user-subtitle {
@@ -92,14 +90,14 @@
 }
 
 .action-btn.primary {
-  background: linear-gradient(135deg, #6c63ff, #00aaff);
+  background: var(--brand-primary);
   color: white;
-  box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
 }
 
 .action-btn.primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(108, 99, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
 }
 
 .action-btn.secondary {
@@ -126,10 +124,10 @@
 }
 
 .stat-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
   padding: 2rem;
   position: relative;
   overflow: hidden;
@@ -148,31 +146,31 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #6c63ff, #00aaff);
+  background: var(--brand-primary);
 }
 
 .stat-card.total::before {
-  background: linear-gradient(90deg, #6c63ff, #00aaff);
+  background: var(--brand-primary);
 }
 
 .stat-card.completed::before {
-  background: linear-gradient(90deg, #22c55e, #16a34a);
+  background: var(--success);
 }
 
 .stat-card.pending::before {
-  background: linear-gradient(90deg, #f59e0b, #d97706);
+  background: var(--warning);
 }
 
 .stat-card.confirmed::before {
-  background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+  background: var(--primary);
 }
 
 .stat-card.upcoming::before {
-  background: linear-gradient(90deg, #06b6d4, #0891b2);
+  background: var(--secondary);
 }
 
 .stat-card.cancelled::before {
-  background: linear-gradient(90deg, #ef4444, #dc2626);
+  background: var(--danger);
 }
 
 .stat-icon {
@@ -227,12 +225,13 @@
 }
 
 .content-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
   padding: 2rem;
   height: fit-content;
+  box-shadow: var(--glass-shadow);
 }
 
 .card-header {
@@ -809,7 +808,7 @@
 }
 
 .job-status-chip.confirmed {
-  background: linear-gradient(135deg, #a259ff 0%, #6c63ff 100%);
+  background: var(--brand-primary);
   color: #fff;
 }
 
@@ -823,7 +822,7 @@
 }
 
 .tech-dashboard-avatar.user {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ffa259 100%);
+  background: var(--brand-secondary);
 }
 
 .stat-card.cancelled {
@@ -843,18 +842,17 @@
   flex-wrap: wrap;
 }
 
-/* Enhance
-d Dashboard Stats */
+/* Enhanced Dashboard Stats */
 .stat-card.earnings::before {
-  background: linear-gradient(90deg, #10b981, #059669);
+  background: var(--success);
 }
 
 .stat-card.monthly::before {
-  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  background: #3b82f6;
 }
 
 .stat-card.spending::before {
-  background: linear-gradient(90deg, #f59e0b, #d97706);
+  background: var(--warning);
 }
 
 /* Quick Actions Mini */
@@ -935,11 +933,12 @@ d Dashboard Stats */
 /* Modern 
 Jobs Page Styles */
 .jobs-header {
-  background: rgba(255, 255, 255, 0.08);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow);
   padding: 2rem;
   margin-bottom: 2rem;
   margin-top: 1rem;
@@ -974,23 +973,24 @@ Jobs Page Styles */
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  color: #b0b0b0;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .filter-tab:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
 }
 
 .filter-tab.active {
-  background: linear-gradient(135deg, #6c63ff, #00aaff);
+  background: var(--gradient-primary);
   color: #fff;
   border-color: transparent;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .tab-count {
@@ -1068,22 +1068,22 @@ Jobs Page Styles */
 }
 
 .modern-job-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow);
   padding: 1.5rem 2rem;
   max-width: 420px;
   margin: 0 auto;
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition: box-shadow 0.3s, transform 0.3s;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .modern-job-card:hover {
-  box-shadow: 0 8px 32px rgba(108, 99, 255, 0.18);
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
   transform: translateY(-4px) scale(1.01);
 }
 
@@ -1166,9 +1166,10 @@ Jobs Page Styles */
 
 .job-details {
   margin-top: 1.2rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 1rem 1.2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
 }
 
 @media (max-width: 900px) {

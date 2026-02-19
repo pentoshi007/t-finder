@@ -374,74 +374,6 @@ body {
   margin-bottom: 3rem;
 }
 
-.technician-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 2rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.technician-card:hover {
-  transform: translateY(-5px);
-  background: rgba(108, 99, 255, 0.1);
-  border-color: #6c63ff;
-}
-
-.tech-avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6c63ff, #00aaff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: white;
-  margin: 0 auto 1rem;
-}
-
-.tech-name {
-  color: #fff;
-  margin-bottom: 0.5rem;
-}
-
-.tech-category {
-  color: #6c63ff;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.tech-location {
-  color: #b0b0b0;
-  margin-bottom: 1rem;
-}
-
-.tech-rating {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.rating-stars {
-  color: #ffd700;
-}
-
-.rating-text {
-  color: #fff;
-  font-weight: 600;
-}
-
-.tech-rate {
-  color: #00aaff;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
 
 .section-cta {
   text-align: center;
@@ -924,7 +856,6 @@ body {
   
   .step, 
   .category-card, 
-  .technician-card, 
   .feature-item, 
   .testimonial-card {
     padding: 1rem;

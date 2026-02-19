@@ -15,6 +15,7 @@ import {
 import './Home.css';
 import AuthContext from '../context/AuthContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import TechnicianCard from '../components/TechnicianCard';
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
@@ -220,19 +221,7 @@ const Home = () => {
         <h2 className="section-title">Top Rated Technicians</h2>
         <div className="technicians-grid stagger-animate">
           {featuredTechnicians.map((tech) => (
-            <div key={tech._id} className="technician-card card-hover" onClick={() => navigate(`/technician/${tech._id}`)}>
-              <div className="tech-avatar">
-                {tech.user.name.charAt(0).toUpperCase()}
-              </div>
-              <h3 className="tech-name">{tech.user.name}</h3>
-              <p className="tech-category">{tech.category.name}</p>
-              <p className="tech-location">📍 {tech.location.city}</p>
-              <div className="tech-rating">
-                <span className="rating-stars">⭐⭐⭐⭐⭐</span>
-                <span className="rating-text">{tech.averageRating || '4.8'}</span>
-              </div>
-              <p className="tech-rate">₹{tech.hourlyRate}/hr</p>
-            </div>
+            <TechnicianCard key={tech._id} technician={tech} />
           ))}
         </div>
         <div className="section-cta animate-on-scroll delay-2">

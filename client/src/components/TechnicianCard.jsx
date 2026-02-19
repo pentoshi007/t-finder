@@ -38,7 +38,7 @@ const TechnicianCard = ({ technician }) => {
             <span className="rate-amount">₹{hourlyRate || 'N/A'}</span>
             <span className="rate-unit">/hour</span>
           </div>
-          <button className="book-now-btn btn-animate">View Profile</button>
+          <button className="book-now-btn btn-animate">Show Profile</button>
         </div>
       </div>
     </Link>

@@ -152,95 +152,127 @@
 }
 
 .technician-card {
-  background: rgba(255,255,255,0.04);
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-  padding: 2rem 1.5rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  min-height: 350px;
-  transition: transform 0.15s, box-shadow 0.15s;
+  min-height: 380px;
+  min-width: 0;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s ease;
   cursor: pointer;
+  overflow: hidden;
 }
 .technician-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 8px 32px rgba(108,99,255,0.18);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(108, 99, 255, 0.25);
+  border-color: rgba(108, 99, 255, 0.4);
 }
 .tech-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  min-width: 0;
 }
 .tech-avatar {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: linear-gradient(135deg, #6c63ff, #00aaff);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
 }
 .tech-info {
   flex: 1;
+  min-width: 0;
 }
 .tech-name {
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tech-category {
-  color: #6c63ff;
+  color: #8c85ff;
   font-weight: 600;
   font-size: 1rem;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tech-location {
-  color: #b0b0b0;
-  font-size: 0.95rem;
+  color: #a0a0a0;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tech-rating {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 .rating-stars {
   color: #ffd700;
+  font-size: 1.1rem;
 }
 .rating-text {
   color: #fff;
   font-weight: 600;
+  font-size: 1.05rem;
 }
 .tech-experience {
-  color: #00aaff;
-  font-size: 0.95rem;
+  color: #00c3ff;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 .tech-skills {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  height: 28px;
 }
 .skill-tag {
-  background: rgba(108, 99, 255, 0.18);
-  color: #6c63ff;
-  padding: 0.3rem 0.9rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  background: rgba(108, 99, 255, 0.15);
+  color: #aeb4ff;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
 }
 .tech-bio {
   color: #b0b0b0;
-  font-size: 0.98rem;
-  margin-bottom: 1rem;
-  min-height: 40px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  min-height: calc(1.5em * 3);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tech-footer {
   display: flex;
@@ -248,25 +280,44 @@
   justify-content: space-between;
   margin-top: auto;
   gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 .tech-rate {
-  color: #00aaff;
+  color: #fff;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+}
+.rate-amount {
+  color: #00e0ff;
+}
+.rate-unit {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  font-weight: 500;
 }
 .book-now-btn {
-  padding: 0.7rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   background: linear-gradient(135deg, #6c63ff, #00aaff);
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s;
+  font-size: 0.95rem;
+  transition: background 0.2s, transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.2);
 }
 .book-now-btn:hover {
-  background: #6c63ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+}
+.book-now-btn:active {
+  transform: translateY(1px);
 }
 
 /* Input wrapper */
@@ -411,7 +462,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
   .search-outer-container {
     padding: 6rem 1.5rem;
   }
@@ -466,7 +517,7 @@
   }
   
   .technician-card {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
   
   .tech-footer {
@@ -482,7 +533,7 @@
   
   .technicians-grid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 }
 

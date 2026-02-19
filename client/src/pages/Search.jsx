@@ -314,7 +314,7 @@ const Search = () => {
                                             ))}
                                         </div>
                                         <div className="tech-bio">
-                                            {tech.bio && tech.bio.length > 100 ? tech.bio.slice(0, 100) + '...' : tech.bio}
+                                            {tech.bio || 'No description provided.'}
                                         </div>
                                         <div className="tech-footer">
                                             <div className="tech-rate">

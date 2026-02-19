@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaBolt, FaHammer, FaStar, FaWrench } from 'react-icons/fa';
 import './Home.css';
 import AuthContext from '../context/AuthContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
@@ -127,19 +128,19 @@ const Home = () => {
               <div className="service-preview">
                 <h3>Quick Service Booking</h3>
                 <div className="service-item">
-                  <span className="service-icon">🔧</span>
+                  <span className="service-icon"><FaWrench /></span>
                   <span>Plumber - Available Now</span>
-                  <span className="service-rating">⭐ 4.9</span>
+                  <span className="service-rating"><FaStar /> 4.9</span>
                 </div>
                 <div className="service-item">
-                  <span className="service-icon">⚡</span>
+                  <span className="service-icon"><FaBolt /></span>
                   <span>Electrician - 2 hrs away</span>
-                  <span className="service-rating">⭐ 4.8</span>
+                  <span className="service-rating"><FaStar /> 4.8</span>
                 </div>
                 <div className="service-item">
-                  <span className="service-icon">🔨</span>
+                  <span className="service-icon"><FaHammer /></span>
                   <span>Carpenter - Book for tomorrow</span>
-                  <span className="service-rating">⭐ 4.7</span>
+                  <span className="service-rating"><FaStar /> 4.7</span>
                 </div>
               </div>
             </div>

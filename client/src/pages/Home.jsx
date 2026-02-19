@@ -1,7 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaBolt, FaHammer, FaStar, FaWrench } from 'react-icons/fa';
+import {
+  FaBolt,
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaHammer,
+  FaMoneyBillWave,
+  FaSearch,
+  FaShieldAlt,
+  FaStar,
+  FaWrench
+} from 'react-icons/fa';
 import './Home.css';
 import AuthContext from '../context/AuthContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
@@ -165,17 +175,17 @@ const Home = () => {
         <h2 className="section-title">How T-Finder Works</h2>
         <div className="steps-container stagger-animate">
           <div className="step">
-            <div className="step-icon">🔍</div>
+            <div className="step-icon"><FaSearch /></div>
             <h3>Search & Compare</h3>
             <p>Browse verified technicians by category, location, and ratings. Compare prices and reviews.</p>
           </div>
           <div className="step">
-            <div className="step-icon">📅</div>
+            <div className="step-icon"><FaCalendarAlt /></div>
             <h3>Book Instantly</h3>
             <p>Choose available time slots and book your service with transparent pricing.</p>
           </div>
           <div className="step">
-            <div className="step-icon">✅</div>
+            <div className="step-icon"><FaCheckCircle /></div>
             <h3>Get It Done</h3>
             <p>Professional service delivered on time. Rate and review after completion.</p>
           </div>
@@ -226,7 +236,7 @@ const Home = () => {
           ))}
         </div>
         <div className="section-cta animate-on-scroll delay-2">
-          <Link to="/search" className="view-all-btn btn-animate">View All Technicians</Link>
+          <Link to="/search" className="view-all-btn">View All Technicians</Link>
         </div>
       </section>
 
@@ -235,22 +245,22 @@ const Home = () => {
         <h2 className="section-title">Why Choose T-Finder?</h2>
         <div className="features-container stagger-animate">
           <div className="feature-item">
-            <div className="feature-icon">✅</div>
+            <div className="feature-icon"><FaCheckCircle /></div>
             <h3>Verified Professionals</h3>
             <p>Every technician is background-checked, verified, and rated by real customers.</p>
           </div>
           <div className="feature-item">
-            <div className="feature-icon">💰</div>
+            <div className="feature-icon"><FaMoneyBillWave /></div>
             <h3>Transparent Pricing</h3>
             <p>See upfront pricing with no hidden fees. Compare rates and choose what works for you.</p>
           </div>
           <div className="feature-item">
-            <div className="feature-icon">⚡</div>
+            <div className="feature-icon"><FaBolt /></div>
             <h3>Instant Booking</h3>
             <p>Book services instantly with real-time availability and flexible scheduling.</p>
           </div>
           <div className="feature-item">
-            <div className="feature-icon">🛡️</div>
+            <div className="feature-icon"><FaShieldAlt /></div>
             <h3>Service Guarantee</h3>
             <p>All services come with quality guarantee and customer support.</p>
           </div>

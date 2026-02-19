@@ -155,9 +155,6 @@
   white-space: nowrap;
   box-shadow: 0 4px 15px rgba(108, 99, 255, 0.2);
   flex-shrink: 0;
-  max-width: 50%;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .book-now-btn:hover {

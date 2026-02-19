@@ -129,7 +129,7 @@
 
 .book-service-btn {
   padding: 1rem 2rem;
-  background: var(--gradient-primary);
+  background: var(--brand-primary);
   color: white;
   border: none;
   border-radius: var(--radius-sm);

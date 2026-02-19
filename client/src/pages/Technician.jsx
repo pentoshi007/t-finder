@@ -180,7 +180,7 @@ const Technician = () => {
           <div className="profile-actions">
             <div className="hourly-rate">
               <span className="rate-amount">₹{technician.hourlyRate}</span>
-              <span className="rate-unit">/hour</span>
+              <span className="rate-unit">/h</span>
             </div>
 
             {!isAuthenticated ? (

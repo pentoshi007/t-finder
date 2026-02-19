@@ -325,7 +325,7 @@ const Search = () => {
                                         <div className="tech-footer">
                                             <div className="tech-rate">
                                                 <span className="rate-amount">₹{tech.hourlyRate}</span>
-                                                <span className="rate-unit">/hour</span>
+                                                <span className="rate-unit">/h</span>
                                             </div>
                                             <button className="book-now-btn btn-animate">Show Profile</button>
                                         </div>

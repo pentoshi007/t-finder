@@ -115,7 +115,7 @@ const BookingModal = ({ technician, isOpen, onClose, onBookingSuccess }) => {
                     <div>
                         <h3>{technician.user.name}</h3>
                         <p>{technician.category.name}</p>
-                        <p>₹{technician.hourlyRate}/hour</p>
+                        <p>₹{technician.hourlyRate}/h</p>
                     </div>
                 </div>
 

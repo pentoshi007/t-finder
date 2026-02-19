@@ -49,7 +49,7 @@ const AnimatedRoutes = () => {
 function App() {
   // Remove isLoading and loading screen logic
   return (
-    <div className="app-container page-refresh-enter">
+    <div className="app-container">
       <BrowserRouter
         future={{
           v7_startTransition: true,

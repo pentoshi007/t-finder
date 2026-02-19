@@ -128,7 +128,4 @@ input, select, textarea {
   }
   
   /* Ensure clean mobile experience */
-  * {
-    contain: layout style;
-  }
 }

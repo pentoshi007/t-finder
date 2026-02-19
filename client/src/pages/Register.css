@@ -63,13 +63,10 @@
 
 .role-box:hover {
   border-color: #6c63ff;
-  background-color: #2a2a3e;
 }
 
 .role-box.selected {
   border-color: #6c63ff;
-  background-color: #3a3a5e;
-  box-shadow: 0 0 15px rgba(108, 99, 255, 0.5);
 }
 
 .role-box h4 {

@@ -1,6 +1,24 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import {
+  FaClipboardList,
+  FaCog,
+  FaSearch,
+  FaMoneyBillWave,
+  FaChartLine,
+  FaCheckCircle,
+  FaHourglassHalf,
+  FaCreditCard,
+  FaChartBar,
+  FaCalendarAlt,
+  FaBoxOpen,
+  FaChartPie,
+  FaCalendarDay,
+  FaGem,
+  FaBullseye,
+  FaMoneyBill
+} from 'react-icons/fa';
 import AuthContext from '../context/AuthContext';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 import './Page.css';
@@ -94,11 +112,11 @@ const Dashboard = () => {
             </div>
             <div className="header-actions">
               <Link to="/jobs" className="action-btn primary btn-animate">
-                <span className="btn-icon">📋</span>
+                <span className="btn-icon"><FaClipboardList /></span>
                 View Jobs
               </Link>
               <Link to="/edit-profile" className="action-btn secondary btn-animate">
-                <span className="btn-icon">⚙️</span>
+                <span className="btn-icon"><FaCog /></span>
                 Settings
               </Link>
             </div>
@@ -107,7 +125,7 @@ const Dashboard = () => {
           {/* Stats Grid */}
           <div className="stats-grid animate-on-scroll stagger-animate">
             <div className="stat-card earnings card-hover">
-              <div className="stat-icon">💰</div>
+              <div className="stat-icon"><FaMoneyBillWave /></div>
               <div className="stat-content">
                 <h3>₹{totalEarnings.toLocaleString()}</h3>
                 <p>Total Earnings</p>
@@ -115,7 +133,7 @@ const Dashboard = () => {
               <div className="stat-trend">All time</div>
             </div>
             <div className="stat-card monthly card-hover">
-              <div className="stat-icon">📈</div>
+              <div className="stat-icon"><FaChartLine /></div>
               <div className="stat-content">
                 <h3>₹{thisMonthEarnings.toLocaleString()}</h3>
                 <p>This Month</p>
@@ -123,7 +141,7 @@ const Dashboard = () => {
               <div className="stat-badge">{thisMonthJobs.length} jobs</div>
             </div>
             <div className="stat-card completed card-hover">
-              <div className="stat-icon">✅</div>
+              <div className="stat-icon"><FaCheckCircle /></div>
               <div className="stat-content">
                 <h3>{completedJobs}</h3>
                 <p>Completed</p>
@@ -131,7 +149,7 @@ const Dashboard = () => {
               <div className="stat-trend">₹{avgJobValue} avg</div>
             </div>
             <div className="stat-card pending card-hover">
-              <div className="stat-icon">⏳</div>
+              <div className="stat-icon"><FaHourglassHalf /></div>
               <div className="stat-content">
                 <h3>{pendingJobs}</h3>
                 <p>Pending</p>
@@ -165,7 +183,7 @@ const Dashboard = () => {
                   </div>
                 )) : (
                   <div className="empty-state">
-                    <span className="empty-icon">📭</span>
+                    <span className="empty-icon"><FaBoxOpen /></span>
                     <p>No recent activity</p>
                   </div>
                 )}
@@ -179,23 +197,23 @@ const Dashboard = () => {
               </div>
               <div className="performance-metrics">
                 <div className="metric">
-                  <div className="metric-label">💵 Hourly Rate</div>
+                  <div className="metric-label"><FaMoneyBill style={{ marginRight: '6px' }} /> Hourly Rate</div>
                   <div className="metric-value">₹{hourlyRate}</div>
                 </div>
                 <div className="metric">
-                  <div className="metric-label">📊 Success Rate</div>
+                  <div className="metric-label"><FaChartPie style={{ marginRight: '6px' }} /> Success Rate</div>
                   <div className="metric-value">{totalJobs > 0 ? Math.round((completedJobs / totalJobs) * 100) : 0}%</div>
                 </div>
                 <div className="metric">
-                  <div className="metric-label">📅 This Month</div>
+                  <div className="metric-label"><FaCalendarDay style={{ marginRight: '6px' }} /> This Month</div>
                   <div className="metric-value">{thisMonthJobs.length} jobs</div>
                 </div>
                 <div className="metric">
-                  <div className="metric-label">💎 Avg Job Value</div>
+                  <div className="metric-label"><FaGem style={{ marginRight: '6px' }} /> Avg Job Value</div>
                   <div className="metric-value">₹{avgJobValue}</div>
                 </div>
                 <div className="metric">
-                  <div className="metric-label">🎯 Active Jobs</div>
+                  <div className="metric-label"><FaBullseye style={{ marginRight: '6px' }} /> Active Jobs</div>
                   <div className="metric-value">{confirmedJobs}</div>
                 </div>
               </div>
@@ -244,11 +262,11 @@ const Dashboard = () => {
             </div>
             <div className="header-actions">
               <Link to="/search" className="action-btn primary btn-animate">
-                <span className="btn-icon">🔍</span>
+                <span className="btn-icon"><FaSearch /></span>
                 Find Services
               </Link>
               <Link to="/edit-profile" className="action-btn secondary btn-animate">
-                <span className="btn-icon">⚙️</span>
+                <span className="btn-icon"><FaCog /></span>
                 Settings
               </Link>
             </div>
@@ -257,7 +275,7 @@ const Dashboard = () => {
           {/* Stats Grid */}
           <div className="stats-grid animate-on-scroll stagger-animate">
             <div className="stat-card spending card-hover">
-              <div className="stat-icon">💳</div>
+              <div className="stat-icon"><FaCreditCard /></div>
               <div className="stat-content">
                 <h3>₹{totalSpent.toLocaleString()}</h3>
                 <p>Total Spent</p>
@@ -265,7 +283,7 @@ const Dashboard = () => {
               <div className="stat-trend">All time</div>
             </div>
             <div className="stat-card monthly card-hover">
-              <div className="stat-icon">📊</div>
+              <div className="stat-icon"><FaChartBar /></div>
               <div className="stat-content">
                 <h3>₹{thisMonthSpent.toLocaleString()}</h3>
                 <p>This Month</p>
@@ -273,7 +291,7 @@ const Dashboard = () => {
               <div className="stat-badge">{thisMonthBookings.length} bookings</div>
             </div>
             <div className="stat-card completed card-hover">
-              <div className="stat-icon">✅</div>
+              <div className="stat-icon"><FaCheckCircle /></div>
               <div className="stat-content">
                 <h3>{completed}</h3>
                 <p>Completed</p>
@@ -281,7 +299,7 @@ const Dashboard = () => {
               <div className="stat-trend">₹{avgBookingValue} avg</div>
             </div>
             <div className="stat-card upcoming card-hover">
-              <div className="stat-icon">📅</div>
+              <div className="stat-icon"><FaCalendarAlt /></div>
               <div className="stat-content">
                 <h3>{upcoming}</h3>
                 <p>Upcoming</p>
@@ -315,7 +333,7 @@ const Dashboard = () => {
                   </div>
                 )) : (
                   <div className="empty-state">
-                    <span className="empty-icon">📭</span>
+                    <span className="empty-icon"><FaBoxOpen /></span>
                     <p>No bookings yet</p>
                     <Link to="/search" className="empty-action">Find Services</Link>
                   </div>
@@ -330,27 +348,27 @@ const Dashboard = () => {
               </div>
               <div className="performance-metrics">
                 <div className="metric">
-                  <div className="metric-label">💰 Total Spent</div>
+                  <div className="metric-label"><FaMoneyBillWave style={{ marginRight: '6px' }} /> Total Spent</div>
                   <div className="metric-value">₹{totalSpent.toLocaleString()}</div>
                 </div>
                 <div className="metric">
-                  <div className="metric-label">📈 This Month</div>
+                  <div className="metric-label"><FaChartLine style={{ marginRight: '6px' }} /> This Month</div>
                   <div className="metric-value">₹{thisMonthSpent.toLocaleString()}</div>
                 </div>
                 <div className="metric">
-                  <div className="metric-label">📊 Avg Booking</div>
+                  <div className="metric-label"><FaChartBar style={{ marginRight: '6px' }} /> Avg Booking</div>
                   <div className="metric-value">₹{avgBookingValue}</div>
                 </div>
                 <div className="metric">
-                  <div className="metric-label">🎯 Success Rate</div>
+                  <div className="metric-label"><FaBullseye style={{ marginRight: '6px' }} /> Success Rate</div>
                   <div className="metric-value">{totalBookings > 0 ? Math.round((completed / totalBookings) * 100) : 0}%</div>
                 </div>
                 <div className="quick-actions-mini">
                   <Link to="/search" className="mini-action">
-                    🔍 Find Services
+                    <FaSearch style={{ marginRight: '4px' }} /> Find Services
                   </Link>
                   <Link to="/my-bookings" className="mini-action">
-                    📋 All Bookings
+                    <FaClipboardList style={{ marginRight: '4px' }} /> All Bookings
                   </Link>
                 </div>
               </div>

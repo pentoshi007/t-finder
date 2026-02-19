@@ -10,7 +10,12 @@ import {
   FaSearch,
   FaShieldAlt,
   FaStar,
-  FaWrench
+  FaWrench,
+  FaPaintRoller,
+  FaSnowflake,
+  FaMobileAlt,
+  FaPlug,
+  FaCar
 } from 'react-icons/fa';
 import './Home.css';
 import AuthContext from '../context/AuthContext';
@@ -200,14 +205,14 @@ const Home = () => {
           {categories.slice(0, 8).map((category) => (
             <div key={category._id} className="category-card card-hover" onClick={() => navigate(`/search?category=${category.name}`)}>
               <div className="category-icon">
-                {category.name === 'Plumber' && '🔧'}
-                {category.name === 'Electrician' && '⚡'}
-                {category.name === 'Carpenter' && '🔨'}
-                {category.name === 'Painter' && '🎨'}
-                {category.name === 'AC Repair' && '❄️'}
-                {category.name === 'Mobile Repair' && '📱'}
-                {category.name === 'Appliance Repair' && '🔌'}
-                {category.name === 'Car Mechanic' && '🚗'}
+                {category.name === 'Plumber' && <FaWrench />}
+                {category.name === 'Electrician' && <FaBolt />}
+                {category.name === 'Carpenter' && <FaHammer />}
+                {category.name === 'Painter' && <FaPaintRoller />}
+                {category.name === 'AC Repair' && <FaSnowflake />}
+                {category.name === 'Mobile Repair' && <FaMobileAlt />}
+                {category.name === 'Appliance Repair' && <FaPlug />}
+                {category.name === 'Car Mechanic' && <FaCar />}
               </div>
               <div className="category-name">{category.name}</div>
               <div className="category-desc">Professional {category.name.toLowerCase()} services</div>
@@ -261,7 +266,7 @@ const Home = () => {
         <h2 className="section-title">What Our Customers Say</h2>
         <div className="testimonials-container stagger-animate">
           <div className="testimonial-card card-hover">
-            <div className="testimonial-rating">⭐⭐⭐⭐⭐</div>
+            <div className="testimonial-rating">{[...Array(5)].map((_, i) => <FaStar key={i} />)}</div>
             <p>"Found an excellent plumber through T-Finder. Quick response, fair pricing, and quality work. Highly recommended!"</p>
             <div className="testimonial-author">
               <div className="author-avatar">P</div>
@@ -272,7 +277,7 @@ const Home = () => {
             </div>
           </div>
           <div className="testimonial-card card-hover">
-            <div className="testimonial-rating">⭐⭐⭐⭐⭐</div>
+            <div className="testimonial-rating">{[...Array(5)].map((_, i) => <FaStar key={i} />)}</div>
             <p>"The electrician was professional, punctual, and solved my issue quickly. The booking process was seamless!"</p>
             <div className="testimonial-author">
               <div className="author-avatar">R</div>
@@ -283,7 +288,7 @@ const Home = () => {
             </div>
           </div>
           <div className="testimonial-card card-hover">
-            <div className="testimonial-rating">⭐⭐⭐⭐⭐</div>
+            <div className="testimonial-rating">{[...Array(5)].map((_, i) => <FaStar key={i} />)}</div>
             <p>"Great platform! Found a reliable AC technician who fixed my unit perfectly. Will definitely use again."</p>
             <div className="testimonial-author">
               <div className="author-avatar">A</div>

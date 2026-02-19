@@ -1,6 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
+import {
+  FaHourglassHalf,
+  FaCheckCircle,
+  FaCheckDouble,
+  FaTimesCircle,
+  FaBan,
+  FaClipboardList,
+  FaExclamationTriangle,
+  FaBoxOpen,
+  FaCalendarAlt,
+  FaClock,
+  FaMoneyBillWave,
+  FaUser,
+  FaPhoneAlt,
+  FaMapMarkerAlt,
+  FaCommentDots
+} from 'react-icons/fa';
 import './Page.css';
 import './Dashboard.css';
 
@@ -52,12 +69,12 @@ const Jobs = () => {
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'pending': return '⏳';
-      case 'confirmed': return '✅';
-      case 'completed': return '🎯';
-      case 'cancelled': return '❌';
-      case 'rejected': return '🚫';
-      default: return '📋';
+      case 'pending': return <FaHourglassHalf />;
+      case 'confirmed': return <FaCheckCircle />;
+      case 'completed': return <FaCheckDouble />;
+      case 'cancelled': return <FaTimesCircle />;
+      case 'rejected': return <FaBan />;
+      default: return <FaClipboardList />;
     }
   };
 
@@ -111,13 +128,13 @@ const Jobs = () => {
             </div>
           ) : error ? (
             <div className="error-state">
-              <span className="error-icon">⚠️</span>
+              <span className="error-icon"><FaExclamationTriangle /></span>
               <h3>Something went wrong</h3>
               <p>{error}</p>
             </div>
           ) : filteredJobs.length === 0 ? (
             <div className="empty-jobs-state">
-              <span className="empty-icon">📭</span>
+              <span className="empty-icon"><FaBoxOpen /></span>
               <h3>No jobs found</h3>
               <p>{filter === 'all' ? 'You have no jobs yet.' : `No ${filter} jobs found.`}</p>
             </div>
@@ -145,12 +162,12 @@ const Jobs = () => {
                         </div>
                         <div className="job-meta">
                           <span className="job-date">
-                            📅 {job.scheduledDate ? new Date(job.scheduledDate).toLocaleDateString() : 'No date'}
+                            <FaCalendarAlt style={{ marginRight: '6px' }} /> {job.scheduledDate ? new Date(job.scheduledDate).toLocaleDateString() : 'No date'}
                           </span>
                           {job.scheduledTime && (
-                            <span className="job-time">🕐 {job.scheduledTime}</span>
+                            <span className="job-time"><FaClock style={{ marginRight: '6px' }} /> {job.scheduledTime}</span>
                           )}
-                          <span className="job-amount">💰 ₹{job.totalAmount}</span>
+                          <span className="job-amount"><FaMoneyBillWave style={{ marginRight: '6px' }} /> ₹{job.totalAmount}</span>
                         </div>
                       </div>
                       <div className="expand-icon">
@@ -163,30 +180,30 @@ const Jobs = () => {
                       <div className="job-details">
                         <div className="details-grid">
                           <div className="detail-item">
-                            <span className="detail-label">👤 Customer</span>
+                            <span className="detail-label"><FaUser style={{ marginRight: '6px' }} /> Customer</span>
                             <span className="detail-value">{job.user?.name || 'N/A'}</span>
                           </div>
                           <div className="detail-item">
-                            <span className="detail-label">📞 Phone</span>
+                            <span className="detail-label"><FaPhoneAlt style={{ marginRight: '6px' }} /> Phone</span>
                             <span className="detail-value">{job.contactPhone}</span>
                           </div>
                           <div className="detail-item">
-                            <span className="detail-label">⏱️ Duration</span>
+                            <span className="detail-label"><FaClock style={{ marginRight: '6px' }} /> Duration</span>
                             <span className="detail-value">{job.duration} hour(s)</span>
                           </div>
                           <div className="detail-item full-width">
-                            <span className="detail-label">📝 Description</span>
+                            <span className="detail-label"><FaClipboardList style={{ marginRight: '6px' }} /> Description</span>
                             <span className="detail-value">{job.description}</span>
                           </div>
                           <div className="detail-item full-width">
-                            <span className="detail-label">📍 Address</span>
+                            <span className="detail-label"><FaMapMarkerAlt style={{ marginRight: '6px' }} /> Address</span>
                             <span className="detail-value">
                               {job.address?.street}, {job.address?.city}, {job.address?.state} - {job.address?.pincode}
                             </span>
                           </div>
                           {job.notes && (
                             <div className="detail-item full-width">
-                              <span className="detail-label">💬 Notes</span>
+                              <span className="detail-label"><FaCommentDots style={{ marginRight: '6px' }} /> Notes</span>
                               <span className="detail-value">{job.notes}</span>
                             </div>
                           )}
@@ -200,13 +217,13 @@ const Jobs = () => {
                                 className="action-btn accept"
                                 onClick={() => handleAction(job._id, 'confirmed')}
                               >
-                                ✅ Accept Job
+                                <FaCheckCircle style={{ marginRight: '6px' }} /> Accept Job
                               </button>
                               <button
                                 className="action-btn reject"
                                 onClick={() => handleAction(job._id, 'rejected')}
                               >
-                                🚫 Reject
+                                <FaBan style={{ marginRight: '6px' }} /> Reject
                               </button>
                             </>
                           )}
@@ -215,7 +232,7 @@ const Jobs = () => {
                               className="action-btn complete"
                               onClick={() => handleAction(job._id, 'completed')}
                             >
-                              🎯 Mark Complete
+                              <FaCheckDouble style={{ marginRight: '6px' }} /> Mark Complete
                             </button>
                           )}
                           {['pending', 'confirmed'].includes(job.status) && (
@@ -223,7 +240,7 @@ const Jobs = () => {
                               className="action-btn cancel"
                               onClick={() => handleAction(job._id, 'cancelled')}
                             >
-                              ❌ Cancel
+                              <FaTimesCircle style={{ marginRight: '6px' }} /> Cancel
                             </button>
                           )}
                         </div>

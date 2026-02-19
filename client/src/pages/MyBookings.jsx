@@ -2,6 +2,26 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import {
+  FaHourglassHalf,
+  FaCheckCircle,
+  FaCheckDouble,
+  FaTimesCircle,
+  FaBan,
+  FaClipboardList,
+  FaExclamationTriangle,
+  FaBoxOpen,
+  FaCalendarAlt,
+  FaClock,
+  FaMoneyBillWave,
+  FaWrench,
+  FaPhoneAlt,
+  FaChartBar,
+  FaMapMarkerAlt,
+  FaCommentDots,
+  FaStar,
+  FaInfoCircle
+} from 'react-icons/fa';
 import './Page.css';
 import './Dashboard.css';
 
@@ -107,12 +127,12 @@ const MyBookings = () => {
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'pending': return '⏳';
-      case 'confirmed': return '✅';
-      case 'completed': return '🎯';
-      case 'cancelled': return '❌';
-      case 'rejected': return '🚫';
-      default: return '📋';
+      case 'pending': return <FaHourglassHalf />;
+      case 'confirmed': return <FaCheckCircle />;
+      case 'completed': return <FaCheckDouble />;
+      case 'cancelled': return <FaTimesCircle />;
+      case 'rejected': return <FaBan />;
+      default: return <FaClipboardList />;
     }
   };
 
@@ -177,13 +197,13 @@ const MyBookings = () => {
             </div>
           ) : error ? (
             <div className="error-state">
-              <span className="error-icon">⚠️</span>
+              <span className="error-icon"><FaExclamationTriangle /></span>
               <h3>Something went wrong</h3>
               <p>{error}</p>
             </div>
           ) : filteredBookings.length === 0 ? (
             <div className="empty-jobs-state">
-              <span className="empty-icon">📭</span>
+              <span className="empty-icon"><FaBoxOpen /></span>
               <h3>No bookings found</h3>
               <p>{filter === 'all' ? 'You have no bookings yet.' : `No ${filter} bookings found.`}</p>
               {filter === 'all' && (
@@ -217,12 +237,12 @@ const MyBookings = () => {
                         </div>
                         <div className="job-meta">
                           <span className="job-date">
-                            📅 {booking.scheduledDate ? new Date(booking.scheduledDate).toLocaleDateString() : 'No date'}
+                            <FaCalendarAlt style={{ marginRight: '6px' }} /> {booking.scheduledDate ? new Date(booking.scheduledDate).toLocaleDateString() : 'No date'}
                           </span>
                           {booking.scheduledTime && (
-                            <span className="job-time">🕐 {booking.scheduledTime}</span>
+                            <span className="job-time"><FaClock style={{ marginRight: '6px' }} /> {booking.scheduledTime}</span>
                           )}
-                          <span className="job-amount">💰 ₹{booking.totalAmount}</span>
+                          <span className="job-amount"><FaMoneyBillWave style={{ marginRight: '6px' }} /> ₹{booking.totalAmount}</span>
                         </div>
                       </div>
                       <div className="expand-icon">
@@ -235,36 +255,36 @@ const MyBookings = () => {
                       <div className="job-details">
                         <div className="details-grid">
                           <div className="detail-item">
-                            <span className="detail-label">🔧 Technician</span>
+                            <span className="detail-label"><FaWrench style={{ marginRight: '6px' }} /> Technician</span>
                             <span className="detail-value">{booking.technician?.user?.name || 'Not assigned'}</span>
                           </div>
                           <div className="detail-item">
-                            <span className="detail-label">📞 Contact</span>
+                            <span className="detail-label"><FaPhoneAlt style={{ marginRight: '6px' }} /> Contact</span>
                             <span className="detail-value">{booking.contactPhone}</span>
                           </div>
                           <div className="detail-item">
-                            <span className="detail-label">⏱️ Duration</span>
+                            <span className="detail-label"><FaClock style={{ marginRight: '6px' }} /> Duration</span>
                             <span className="detail-value">{booking.duration} hour(s)</span>
                           </div>
                           <div className="detail-item">
-                            <span className="detail-label">📊 Status</span>
+                            <span className="detail-label"><FaChartBar style={{ marginRight: '6px' }} /> Status</span>
                             <span className={`detail-value status-${booking.status}`}>
                               {getStatusIcon(booking.status)} {booking.status.toUpperCase()}
                             </span>
                           </div>
                           <div className="detail-item full-width">
-                            <span className="detail-label">📝 Description</span>
+                            <span className="detail-label"><FaClipboardList style={{ marginRight: '6px' }} /> Description</span>
                             <span className="detail-value">{booking.description}</span>
                           </div>
                           <div className="detail-item full-width">
-                            <span className="detail-label">📍 Service Address</span>
+                            <span className="detail-label"><FaMapMarkerAlt style={{ marginRight: '6px' }} /> Service Address</span>
                             <span className="detail-value">
                               {booking.address?.street}, {booking.address?.city}, {booking.address?.state} - {booking.address?.pincode}
                             </span>
                           </div>
                           {booking.notes && (
                             <div className="detail-item full-width">
-                              <span className="detail-label">💬 Special Notes</span>
+                              <span className="detail-label"><FaCommentDots style={{ marginRight: '6px' }} /> Special Notes</span>
                               <span className="detail-value">{booking.notes}</span>
                             </div>
                           )}
@@ -277,7 +297,7 @@ const MyBookings = () => {
                               className="action-btn cancel"
                               onClick={() => handleCancel(booking._id)}
                             >
-                              ❌ Cancel Booking
+                              <FaTimesCircle style={{ marginRight: '6px' }} /> Cancel Booking
                             </button>
                           )}
                           {booking.status === 'completed' && !alreadyReviewed && (
@@ -285,12 +305,12 @@ const MyBookings = () => {
                               className="action-btn review"
                               onClick={() => openReviewModal(booking.technician._id, booking.technician.user.name, booking._id)}
                             >
-                              ⭐ Leave Review
+                              <FaStar style={{ marginRight: '6px' }} /> Leave Review
                             </button>
                           )}
                           {booking.status === 'completed' && alreadyReviewed && (
                             <button className="action-btn review" disabled>
-                              ⭐ Reviewed
+                              <FaCheckCircle style={{ marginRight: '6px' }} /> Reviewed
                             </button>
                           )}
                           {booking.technician?.user?.name && (
@@ -298,7 +318,7 @@ const MyBookings = () => {
                               className="action-btn contact"
                               onClick={() => window.open(`tel:${booking.contactPhone}`)}
                             >
-                              📞 Contact
+                              <FaPhoneAlt style={{ marginRight: '6px' }} /> Contact
                             </button>
                           )}
                         </div>
@@ -317,7 +337,7 @@ const MyBookings = () => {
                                       <div>
                                         <h4>{review.user?.name || 'User'}</h4>
                                         <div className="review-rating">
-                                          {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                                          {[...Array(review.rating)].map((_, i) => <FaStar key={i} color="#ffd700" />)}
                                         </div>
                                       </div>
                                     </div>

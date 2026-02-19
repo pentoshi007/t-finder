@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 import AuthContext from '../context/AuthContext';
 import BookingModal from '../components/BookingModal';
 import useScrollAnimation from '../hooks/useScrollAnimation';
@@ -152,7 +153,10 @@ const Technician = () => {
           <div className="profile-info">
             <h1>{technician.user.name}</h1>
             <p className="profile-category">{technician.category.name}</p>
-            <p className="profile-location">📍 {technician.location.city}</p>
+            <p className="profile-location">
+              <FaMapMarkerAlt size={14} style={{ marginRight: '6px', color: '#6c63ff' }} />  
+              {technician.location.city}
+            </p>
 
             <div className="profile-rating">
               <div className="stars">
@@ -285,8 +289,8 @@ const Technician = () => {
             <div className="sidebar-card">
               <h4>Contact Information</h4>
               <div className="contact-info">
-                <p>📧 {technician.user.email}</p>
-                <p>📞 {technician.phone}</p>
+                <p><FaEnvelope className="contact-icon" /> {technician.user.email}</p>
+                <p><FaPhoneAlt className="contact-icon" /> {technician.phone}</p>
               </div>
             </div>
           </div>

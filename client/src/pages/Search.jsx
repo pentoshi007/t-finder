@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Search.css';
 import AuthContext from '../context/AuthContext';
+import { FaMapMarkerAlt, FaStar, FaSearch } from 'react-icons/fa';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 
 const Search = () => {
@@ -298,11 +299,16 @@ const Search = () => {
                                             <div className="tech-info">
                                                 <h3 className="tech-name">{tech.user.name}</h3>
                                                 <p className="tech-category">{tech.category.name}</p>
-                                                <p className="tech-location">📍 {tech.location.city}</p>
+                                                <p className="tech-location">
+                                                    <FaMapMarkerAlt style={{ marginRight: '6px', color: '#6c63ff' }} />
+                                                    {tech.location.city}
+                                                </p>
                                             </div>
                                         </div>
                                         <div className="tech-rating">
-                                            <span className="rating-stars">⭐⭐⭐⭐⭐</span>
+                                            <span className="rating-stars">
+                                                {[...Array(5)].map((_, i) => <FaStar key={i} />)}
+                                            </span>
                                             <span className="rating-text">{tech.averageRating || '4.8'}</span>
                                         </div>
                                         <div className="tech-experience">
@@ -340,7 +346,7 @@ const Search = () => {
                         </>
                     ) : (
                         <div className="no-results">
-                            <div className="no-results-icon">🔍</div>
+                            <div className="no-results-icon"><FaSearch /></div>
                             <h3>No technicians found</h3>
                             <p>Try adjusting your filters or search criteria</p>
                             <button onClick={clearFilters} className="reset-search-btn btn-animate">
